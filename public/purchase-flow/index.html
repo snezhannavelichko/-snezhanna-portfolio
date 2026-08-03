@@ -5060,7 +5060,11 @@
         width: 100%;
         height: 100dvh;
         place-items: start;
-        padding: 72px 12px 24px;
+        padding: calc(64px + env(safe-area-inset-top)) 12px calc(24px + env(safe-area-inset-bottom));
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
       }
       .lightbox.is-case-flow-mode,
       .lightbox.is-mobile-wide-mode,
@@ -5070,17 +5074,19 @@
         width: 100%;
         height: 100dvh;
         place-items: start;
-        padding: 72px 12px 24px;
-        overflow: auto;
+        padding: calc(64px + env(safe-area-inset-top)) 12px calc(24px + env(safe-area-inset-bottom));
+        overflow-x: hidden;
+        overflow-y: auto;
         overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
       }
       .lightbox-image.is-mobile-wide {
         display: block;
-        width: 820px;
+        width: calc(100vw - 24px);
         max-width: none;
         max-height: none;
         height: auto;
-        margin: 0;
+        margin: 0 auto;
         border-radius: 16px;
       }
       .lightbox-image:not(.is-mobile-wide) {
@@ -5092,8 +5098,14 @@
         margin: 0 auto;
       }
       .lightbox.is-rendered-wide-mode .lightbox-render {
-        max-width: none;
+        max-width: calc(100vw - 24px);
         max-height: none;
+        margin: 0 auto;
+      }
+      .lightbox-close {
+        top: calc(12px + env(safe-area-inset-top));
+        right: 12px;
+        z-index: 2;
       }
     }
   </style>
@@ -6332,7 +6344,7 @@ UX-тексты
       const isMobileWide = isFramedImage && window.innerWidth <= 767;
       const scale = isFramedImage
         ? isMobileWide
-          ? Math.min(2.4, Math.max(1, 820 / mockup.offsetWidth))
+          ? Math.min(1, Math.max(0.1, (window.innerWidth - 24) / mockup.offsetWidth))
           : Math.min(
               (window.innerWidth - 120) / mockup.offsetWidth,
               (window.innerHeight - 120) / mockup.offsetHeight,

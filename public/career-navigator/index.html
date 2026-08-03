@@ -635,9 +635,11 @@
         width: 100%;
         height: 100dvh;
         place-items: start;
-        padding: 72px 12px 24px;
-        overflow: auto;
+        padding: calc(64px + env(safe-area-inset-top)) 12px calc(24px + env(safe-area-inset-bottom));
+        overflow-x: hidden;
+        overflow-y: auto;
         overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
       }
 
       .lightbox.open {
@@ -655,8 +657,16 @@
       }
 
       .lightbox img.is-mobile-wide {
-        width: 820px;
-        margin: 0;
+        width: calc(100vw - 24px);
+        margin: 0 auto;
+      }
+
+      .lightbox-close {
+        top: calc(12px + env(safe-area-inset-top));
+        right: 12px;
+        width: 44px;
+        height: 44px;
+        z-index: 2;
       }
 
       body.lightbox-open .site-header {
