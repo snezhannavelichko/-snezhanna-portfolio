@@ -1,0 +1,1462 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Редизайн приложения</title>
+  <meta name="description" content="Кейс портфолио: редизайн мобильного приложения Практикума." />
+  <link rel="stylesheet" href="/assets/styles/fonts.css" />
+  <style>
+    @font-face {
+      font-family: "YS Text";
+      src: url("/assets/media/596d06fc2f1b91ac.ttf") format("truetype"),
+           local("YS Text Regular"), local("YS Text-Regular"), local("YSText-Regular");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "YS Text";
+      src: url("/assets/media/4fc35d503d83373b.ttf") format("truetype"),
+           local("YS Text Medium"), local("YS Text-Medium"), local("YSText-Medium");
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --figma-w: 1280px;
+      --figma-h: 9119.1103515625px;
+      --ink: #050505;
+      --muted: #999999;
+      --soft: #f5f5f5;
+      --accent: #ffdb4d;
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      color: var(--ink);
+      background: transparent;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: #fff; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      padding-top: 90px;
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    h1, h2, h3, p { margin: 0; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: none; }
+
+    .viewport {
+      position: relative;
+      width: 100%;
+      min-height: var(--figma-h);
+      overflow-x: hidden;
+      background: #fff;
+    }
+
+    .figma-case {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: var(--figma-w);
+      height: var(--figma-h);
+      transform-origin: top center;
+      background: #fff;
+    }
+
+    .block {
+      position: absolute;
+      left: 64px;
+      width: 1152px;
+    }
+
+    .hero-block { top: 80px; height: 1077px; }
+    .problem-block { top: 1277px; height: 2424px; }
+    .features-block { top: 3821px; height: 571.1099853515625px; }
+    .approach-block { top: 4512.10986328125px; height: 793px; }
+    .solutions-block { top: 5425.10986328125px; height: 2142px; }
+    .covers-block { top: 7687.10986328125px; height: 772px; }
+    .results-block { top: 8579.109375px; height: 460px; }
+
+    .title-group {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1024px;
+      height: 93px;
+    }
+    .case-title {
+      margin: 0;
+      color: rgba(0,0,0,.85);
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      font-size: 48px;
+      line-height: 57px;
+      letter-spacing: -0.24px;
+      font-weight: 400;
+      font-feature-settings: "lnum", "pnum";
+    }
+    .case-subtitle {
+      position: absolute;
+      left: 0;
+      top: 65px;
+      width: 1024px;
+      margin: 0;
+      color: rgba(0,0,0,.6);
+      opacity: 1;
+      font-size: 20px;
+      line-height: 28px;
+      letter-spacing: 0;
+      font-weight: 400;
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      font-feature-settings: "lnum", "pnum";
+    }
+
+    .hero-cover {
+      position: absolute;
+      left: 0;
+      top: 141px;
+      width: 1152px;
+      height: 740px;
+      overflow: hidden;
+      border-radius: 20px;
+      background: #f5f5f5;
+      cursor: zoom-in;
+    }
+    .hero-cover img {
+      width: 100%;
+      height: 100%;
+      margin-top: 0;
+      object-fit: cover;
+      will-change: transform;
+    }
+    .hero-cover img.scroll-zoom {
+      transform: scale(1.42);
+      transform-origin: center center;
+    }
+
+    .meta-grid {
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      font-feature-settings: "lnum", "pnum";
+      position: absolute;
+      left: 0;
+      top: 929px;
+      display: grid;
+      grid-template-columns: repeat(4, 232px);
+      column-gap: 64px;
+      width: 1152px;
+    }
+    .meta-item h3,
+    .section-kicker {
+      margin: 0;
+      font-size: 20px;
+      line-height: 28px;
+      letter-spacing: 0;
+      font-weight: 400;
+      color: rgba(0,0,0,.9);
+      opacity: 1;
+    }
+    .meta-item p {
+      margin-top: 8px;
+      width: 232px;
+      font-size: 20px;
+      line-height: 28px;
+      letter-spacing: 0;
+      font-weight: 400;
+      color: rgba(0,0,0,.6);
+      opacity: 1;
+      white-space: pre-line;
+    }
+
+    .copy-head {
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      font-feature-settings: "lnum", "pnum";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1152px;
+    }
+    .copy-head h2,
+    .copy-head .section-kicker {
+      margin: 0;
+      font-size: 28px;
+      line-height: 36px;
+      letter-spacing: 0;
+      font-weight: 400;
+      color: rgba(0,0,0,.9);
+      opacity: 1;
+    }
+    .copy-head p {
+      margin-top: 8px;
+      width: 1125px;
+      max-width: 100%;
+      font-size: 20px;
+      line-height: 28px;
+      letter-spacing: 0;
+      font-weight: 400;
+      color: rgba(0,0,0,.6);
+      opacity: 1;
+    }
+
+    .wide-asset,
+    .asset-card { cursor: zoom-in; }
+    .wide-asset {
+      position: absolute;
+      left: 0;
+      width: 1152px;
+      overflow: visible;
+      background: transparent;
+    }
+    .wide-asset img { width: 100%; height: 100%; object-fit: fill; }
+    .old-flow { top: 272px; height: 1364px; }
+
+    .problem-summary {
+      position: absolute;
+      left: 0;
+      top: 1716px;
+      width: 1152px;
+      height: 708px;
+    }
+    .problem-summary h2,
+    .problem-summary h3 {
+      margin: 0;
+      color: rgba(0,0,0,.9);
+      opacity: 1;
+      font-size: 20px;
+      line-height: 28px;
+      letter-spacing: 0;
+      font-weight: 400;
+    }
+    .problem-map {
+      position: absolute;
+      left: 0;
+      top: 68px;
+      width: 1152px;
+      height: 640px;
+      background: transparent;
+      cursor: zoom-in;
+    }
+    .problem-map img { width: 100%; height: 100%; object-fit: fill; }
+    .problem-pill {
+      position: absolute;
+      width: 147px;
+      min-height: 121px;
+      padding: 14px 12px;
+      border-radius: 0;
+      background: #ffd2c8;
+      color: #5f2219;
+      font-size: 16px;
+      line-height: 18px;
+      letter-spacing: 0;
+      text-align: center;
+      display: grid;
+      place-items: center;
+    }
+    .problem-label {
+      position: absolute;
+      font-size: 19px;
+      line-height: normal;
+      letter-spacing: 0;
+      color: rgba(0,0,0,.5);
+      text-align: center;
+    }
+    .problem-line {
+      position: absolute;
+      height: 1px;
+      background: rgba(0,0,0,.22);
+      transform-origin: left center;
+    }
+
+    .features-text {
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      font-feature-settings: "lnum", "pnum";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 440px;
+    }
+    .features-text h2 {
+      margin: 0;
+      color: rgba(0,0,0,.9);
+      opacity: 1;
+      font-size: 28px;
+      line-height: 36px;
+      letter-spacing: 0;
+      font-weight: 400;
+    }
+    .features-text p {
+      margin-top: 8px;
+      width: 440px;
+      font-size: 20px;
+      line-height: 28px;
+      letter-spacing: 0;
+      color: rgba(0,0,0,.6);
+      opacity: 1;
+    }
+    .features-image {
+      position: absolute;
+      left: 483.731px;
+      top: 0;
+      width: 668.269px;
+      height: 571.107px;
+      cursor: zoom-in;
+    }
+    .features-image img { width: 100%; height: 100%; object-fit: fill; }
+
+    .approach-image { top: 153px; height: 640px; }
+
+    .final-image { display: none; }
+    .phone-set {
+      position: absolute;
+      left: 0;
+      top: 160px;
+      width: 1152px;
+      height: 1202px;
+      display: grid;
+      grid-template-columns: repeat(3, 373.333333px);
+      grid-auto-rows: 593px;
+      gap: 16px;
+    }
+    .tablet-note {
+      position: absolute;
+      left: 0;
+      top: 1434px;
+      width: 1152px;
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      font-size: 20px;
+      line-height: 28px;
+      letter-spacing: 0;
+      font-weight: 400;
+      color: rgba(0,0,0,.6);
+      opacity: 1;
+      font-feature-settings: "lnum", "pnum";
+    }
+    .tablet-solution { top: 1502px; height: 640px; }
+    .phone-card {
+      width: 373.333333px;
+      height: 593px;
+      overflow: visible;
+      background: transparent;
+      cursor: zoom-in;
+    }
+    .phone-card img { width: 373.333333px; height: 593px; object-fit: fill; }
+
+    .tablet-image { top: 132px; height: 640px; }
+    .results-grid {
+      position: absolute;
+      left: 0;
+      top: 140px;
+      width: 1152px;
+      height: 322px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .result-card {
+      margin: 0;
+      width: 100%;
+      height: 322px;
+      background: transparent;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+    .result-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+    }
+    .result-card-copy { display: none; }
+
+    .case-subtitle,
+    .meta-item p,
+    .copy-head p,
+    .features-text p,
+    .tablet-note,
+    .portfolio-footer {
+      color: var(--muted) !important;
+      opacity: 1;
+    }
+
+    .back-link {
+      width: 1152px;
+      max-width: calc(100% - 128px);
+      min-height: 72px;
+      margin: 0 auto;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      color: rgba(0,0,0,.85);
+      font: 400 19px/23px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      opacity: 1;
+      transition: color 180ms cubic-bezier(.19, 1, .22, 1);
+    }
+    .back-link:hover,
+    .back-link:focus-visible { color: rgba(0,0,0,1); }
+    .back-link-icon {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: #f5f5f5;
+      font-size: 22px;
+      line-height: 1;
+      transition: transform 180ms cubic-bezier(.19, 1, .22, 1), background 180ms cubic-bezier(.19, 1, .22, 1);
+    }
+    .back-link:hover .back-link-icon,
+    .back-link:focus-visible .back-link-icon {
+      transform: translateX(-2px);
+      background: #ececec;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      z-index: 500;
+      width: 100%;
+      height: 90px;
+      color: rgba(0,0,0,.9);
+      background: transparent;
+      border-bottom: 0;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .site-header-inner {
+      position: relative;
+      z-index: 2;
+      width: 1152px;
+      max-width: calc(100% - 128px);
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    .site-home,
+    .site-nav a { font: 400 20px/26px -apple-system, BlinkMacSystemFont, "Inter", sans-serif; }
+    .site-home { text-decoration: none; }
+    .site-nav { display: flex; gap: 31px; }
+
+    .progressive-glass {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+      pointer-events: none;
+      background: none;
+    }
+    .progressive-glass span { position: absolute; inset: 0; pointer-events: none; }
+    .progressive-glass span:nth-child(1) { backdrop-filter: blur(.05859375px); -webkit-backdrop-filter: blur(.05859375px); mask-image: linear-gradient(to top, transparent 0%, #000 12.5%, #000 25%, transparent 37.5%); -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 12.5%, #000 25%, transparent 37.5%); }
+    .progressive-glass span:nth-child(2) { backdrop-filter: blur(.1171875px); -webkit-backdrop-filter: blur(.1171875px); mask-image: linear-gradient(to top, transparent 12.5%, #000 25%, #000 37.5%, transparent 50%); -webkit-mask-image: linear-gradient(to top, transparent 12.5%, #000 25%, #000 37.5%, transparent 50%); }
+    .progressive-glass span:nth-child(3) { backdrop-filter: blur(.234375px); -webkit-backdrop-filter: blur(.234375px); mask-image: linear-gradient(to top, transparent 25%, #000 37.5%, #000 50%, transparent 62.5%); -webkit-mask-image: linear-gradient(to top, transparent 25%, #000 37.5%, #000 50%, transparent 62.5%); }
+    .progressive-glass span:nth-child(4) { backdrop-filter: blur(.46875px); -webkit-backdrop-filter: blur(.46875px); mask-image: linear-gradient(to top, transparent 37.5%, #000 50%, #000 62.5%, transparent 75%); -webkit-mask-image: linear-gradient(to top, transparent 37.5%, #000 50%, #000 62.5%, transparent 75%); }
+    .progressive-glass span:nth-child(5) { backdrop-filter: blur(.9375px); -webkit-backdrop-filter: blur(.9375px); mask-image: linear-gradient(to top, transparent 50%, #000 62.5%, #000 75%, transparent 87.5%); -webkit-mask-image: linear-gradient(to top, transparent 50%, #000 62.5%, #000 75%, transparent 87.5%); }
+    .progressive-glass span:nth-child(6) { backdrop-filter: blur(1.875px); -webkit-backdrop-filter: blur(1.875px); mask-image: linear-gradient(to top, transparent 62.5%, #000 75%, #000 87.5%, transparent 100%); -webkit-mask-image: linear-gradient(to top, transparent 62.5%, #000 75%, #000 87.5%, transparent 100%); }
+    .progressive-glass span:nth-child(7) { backdrop-filter: blur(3.75px); -webkit-backdrop-filter: blur(3.75px); mask-image: linear-gradient(to top, transparent 75%, #000 87.5%, #000 100%, transparent 112.5%); -webkit-mask-image: linear-gradient(to top, transparent 75%, #000 87.5%, #000 100%, transparent 112.5%); }
+    .progressive-glass span:nth-child(8) { backdrop-filter: blur(7.5px); -webkit-backdrop-filter: blur(7.5px); mask-image: linear-gradient(to top, transparent 87.5%, #000 100%, #000 112.5%, transparent 125%); -webkit-mask-image: linear-gradient(to top, transparent 87.5%, #000 100%, #000 112.5%, transparent 125%); }
+
+    .portfolio-footer {
+      width: min(100%, 1280px);
+      height: 90px;
+      margin: 120px auto 0;
+      padding: 32px 64px;
+      color: rgba(0,0,0,.6);
+    }
+    .portfolio-footer-inner { display: flex; align-items: flex-start; justify-content: space-between; white-space: nowrap; }
+    .portfolio-footer-resume { font: 400 20px/26px -apple-system, BlinkMacSystemFont, "Inter", sans-serif; }
+    .portfolio-footer-links { display: flex; align-items: center; gap: 56px; font: 400 19px/normal -apple-system, BlinkMacSystemFont, "Inter", sans-serif; }
+    .portfolio-copy-button { padding: 0; border: 0; background: transparent; color: inherit; font: 400 19px/normal -apple-system, BlinkMacSystemFont, "Inter", sans-serif; cursor: pointer; }
+    .scroll-top-button {
+      position: fixed;
+      right: 32px;
+      bottom: 32px;
+      z-index: 450;
+      display: grid;
+      width: 52px;
+      height: 52px;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #fff;
+      color: rgba(0,0,0,.9);
+      font: 400 26px/1 -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: opacity 220ms ease, transform 220ms ease, background 180ms ease;
+    }
+    .scroll-top-button.is-visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .scroll-top-button:hover { background: #f7f7f7; }
+    .scroll-top-button:focus-visible { outline: 2px solid rgba(0,0,0,.75); outline-offset: 3px; }
+
+    .case-next {
+      width: 1152px;
+      max-width: calc(100% - 128px);
+      margin: 120px auto 80px;
+    }
+    .case-next-link {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 40px;
+      align-items: stretch;
+      min-height: 260px;
+      padding: 40px;
+      border-radius: 20px;
+      background: #f5f5f5;
+      overflow: hidden;
+      transition: transform 220ms cubic-bezier(.19, 1, .22, 1), background 220ms cubic-bezier(.19, 1, .22, 1);
+    }
+    .case-next-link:hover,
+    .case-next-link:focus-visible {
+      transform: translateY(-2px);
+      background: #f0f0f0;
+    }
+    .case-next-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+    }
+    .case-next-eyebrow {
+      margin: 0;
+      color: rgba(0,0,0,.5);
+      font: 400 19px/23px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      opacity: 1;
+    }
+    .case-next-title {
+      margin: 24px 0 0;
+      max-width: 620px;
+      color: rgba(0,0,0,.9);
+      font: 500 40px/44px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      letter-spacing: 0;
+      opacity: 1;
+    }
+    .case-next-action {
+      margin: 40px 0 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(0,0,0,.85);
+      font: 400 19px/23px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      opacity: 1;
+    }
+    .case-next-arrow {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: #fff;
+      font-size: 22px;
+      line-height: 1;
+      transition: transform 220ms cubic-bezier(.19, 1, .22, 1);
+    }
+    .case-next-link:hover .case-next-arrow,
+    .case-next-link:focus-visible .case-next-arrow {
+      transform: translateX(3px);
+    }
+    .case-next-visual {
+      position: relative;
+      min-height: 180px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #ececec;
+    }
+    .case-next-visual img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+    }
+    .related-projects {
+      width: 1152px;
+      max-width: calc(100% - 128px);
+      margin: 40px auto 80px;
+    }
+    .related-projects h2 {
+      margin: 0 0 40px;
+      color: rgba(0,0,0,.85);
+      font: 400 28px/36px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+    }
+    .related-projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .related-project-card {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      overflow: hidden;
+      border-radius: 20px;
+      background: var(--soft);
+      cursor: pointer;
+    }
+    .related-project-card:hover,
+    .related-project-card:focus-visible { outline: none; }
+    .related-project-visual {
+      position: relative;
+      width: 100%;
+      height: 294px;
+      flex: 0 0 294px;
+      overflow: hidden;
+      background: var(--soft);
+    }
+    .related-project-visual::before,
+    .related-project-visual::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      z-index: 2;
+      width: 32px;
+      height: 32px;
+      background: var(--soft);
+      pointer-events: none;
+    }
+    .related-project-visual::before {
+      left: 0;
+    }
+    .related-project-visual::after {
+      right: 0;
+    }
+    .related-project-visual img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+      transition: transform 520ms cubic-bezier(.22, 1, .36, 1);
+      transform-origin: center;
+      will-change: transform;
+    }
+    .related-project-card:hover .related-project-visual img,
+    .related-project-card:focus-visible .related-project-visual img { transform: scale(1.04); }
+    .related-project-copy {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      padding: 0 24px 24px;
+      font: 400 19px/25px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+    }
+    .related-project-copy p { margin: 0; }
+    .related-project-copy p:first-child { color: rgba(0,0,0,.9); }
+    .related-project-copy p:last-child { color: rgba(0,0,0,.5); }
+    @media (max-width: 900px) {
+      .related-projects { max-width: calc(100% - 32px); }
+      .related-projects-grid { grid-template-columns: 1fr; }
+      .related-project-visual { height: auto; aspect-ratio: 568 / 294; flex-basis: auto; }
+      .scroll-top-button { right: 16px; bottom: 16px; width: 44px; height: 44px; font-size: 22px; }
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      background: rgba(255,255,255,.94);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 180ms ease;
+    }
+    .lightbox.open { opacity: 1; pointer-events: auto; }
+    .lightbox img {
+      max-width: min(96vw, 1600px);
+      max-height: 92vh;
+      object-fit: contain;
+      border-radius: 0;
+      box-shadow: 0 30px 80px rgba(0,0,0,.14);
+    }
+    .lightbox-close {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 50%;
+      background: #111;
+      color: #fff;
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 620ms ease, transform 620ms ease;
+      will-change: opacity, transform;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 80ms; }
+    .reveal-delay-2 { transition-delay: 160ms; }
+    .reveal-delay-3 { transition-delay: 240ms; }
+
+    .scroll-zoom {
+      transform: scale(1.42);
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    @media (max-width: 900px) {
+      body { padding-top: 64px; }
+      .site-header { height: 64px; }
+      .site-header-inner { width: calc(100% - 32px); max-width: none; gap: 16px; }
+      .site-home { font-size: 15px; }
+      .site-nav { gap: 16px; }
+      .site-nav a { font-size: 13px; line-height: 18px; }
+      .portfolio-footer { width: 100%; height: auto; padding: 24px 16px; }
+      .portfolio-footer-inner { gap: 24px; }
+      .portfolio-footer-resume { font-size: 15px; line-height: 20px; }
+      .portfolio-footer-links { gap: 20px; font-size: 14px; line-height: 20px; }
+      .back-link {
+        width: calc(100vw - 32px);
+        max-width: calc(100vw - 32px);
+        min-height: 64px;
+        font-size: 17px;
+        line-height: 22px;
+      }
+      .back-link-icon {
+        width: 34px;
+        height: 34px;
+      }
+      .case-next {
+        width: calc(100vw - 32px);
+        max-width: calc(100vw - 32px);
+        margin-top: 96px;
+      }
+      .case-next-link {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 24px;
+        min-height: 0;
+      }
+      .case-next-title {
+        max-width: 100%;
+        font-size: 30px;
+        line-height: 34px;
+      }
+      .case-next-action {
+        margin-top: 32px;
+      }
+      .case-next-visual {
+        min-height: 220px;
+      }
+    }
+
+    /* Gravity-style responsive flow: preserve media proportions instead of
+       scaling the entire 1280px Figma canvas on smaller viewports. */
+    @media (max-width: 919px) {
+      .viewport {
+        width: 100%;
+        min-height: 0 !important;
+        overflow: visible;
+      }
+
+      .figma-case {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: min(calc(100% - 40px), 896px);
+        height: auto;
+        margin: 0 auto;
+        transform: none !important;
+      }
+
+      .block,
+      .hero-block,
+      .problem-block,
+      .features-block,
+      .approach-block,
+      .solutions-block,
+      .covers-block,
+      .results-block {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        height: auto;
+        margin: 0 0 96px;
+      }
+
+      .title-group,
+      .copy-head,
+      .problem-summary,
+      .features-text,
+      .features-image,
+      .wide-asset,
+      .old-flow,
+      .approach-image,
+      .phone-set,
+      .tablet-note,
+      .tablet-solution,
+      .tablet-image,
+      .results-grid {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        height: auto;
+      }
+
+      .title-group {
+        margin-bottom: 40px;
+      }
+
+      .case-title {
+        font-size: 40px;
+        line-height: 48px;
+      }
+
+      .case-subtitle {
+        position: static;
+        width: 100%;
+        margin-top: 8px;
+        font-size: 19px;
+        line-height: 26px;
+      }
+
+      .hero-cover {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1152 / 740;
+      }
+
+      .hero-cover img,
+      .hero-cover img.scroll-zoom {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transform: none !important;
+      }
+
+      .meta-grid {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        margin-top: 40px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 32px;
+      }
+
+      .meta-item p,
+      .copy-head,
+      .copy-head p,
+      .features-text p,
+      .tablet-note {
+        width: 100%;
+      }
+
+      .copy-head {
+        margin-bottom: 40px;
+      }
+
+      .old-flow,
+      .approach-image,
+      .tablet-solution,
+      .tablet-image {
+        margin-top: 0;
+      }
+
+      .wide-asset img,
+      .problem-map img,
+      .features-image img,
+      .phone-card img,
+      .result-card img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .problem-summary {
+        margin-top: 72px;
+      }
+
+      .problem-map {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        height: auto;
+        margin-top: 40px;
+      }
+
+      .features-image {
+        margin-top: 40px;
+      }
+
+      .phone-set {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: auto;
+        gap: 16px;
+      }
+
+      .phone-card {
+        width: 100%;
+        height: auto;
+      }
+
+      .tablet-note {
+        margin-top: 40px;
+      }
+
+      .tablet-solution {
+        margin-top: 40px;
+      }
+
+      .results-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .result-card {
+        width: 100%;
+        height: auto;
+      }
+
+      .related-projects {
+        margin-top: 0;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .site-nav { display: none; }
+
+      .figma-case {
+        width: calc(100% - 40px);
+      }
+
+      .block,
+      .hero-block,
+      .problem-block,
+      .features-block,
+      .approach-block,
+      .solutions-block,
+      .covers-block,
+      .results-block {
+        margin-bottom: 72px;
+      }
+
+      .case-title {
+        font-size: 32px;
+        line-height: 38px;
+      }
+
+      .case-subtitle,
+      .meta-item h3,
+      .meta-item p,
+      .copy-head p,
+      .features-text p,
+      .tablet-note {
+        font-size: 20px;
+        line-height: 26px;
+      }
+
+      .copy-head h2,
+      .copy-head .section-kicker,
+      .features-text h2,
+      .problem-summary h3 {
+        font-size: 26px;
+        line-height: 32px;
+      }
+
+      .meta-grid,
+      .results-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .phone-set {
+        display: flex;
+        width: 100%;
+        gap: 12px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-padding-inline: 0;
+        overscroll-behavior-inline: contain;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      .phone-set::-webkit-scrollbar {
+        display: none;
+      }
+
+      .phone-card {
+        flex: 0 0 calc(100% - 88px);
+        width: auto;
+        min-width: 0;
+        opacity: 1 !important;
+        transform: none !important;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+      }
+
+      .phone-card img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .meta-grid {
+        gap: 24px;
+      }
+
+      .features-image,
+      .problem-map {
+        margin-bottom: 0;
+      }
+
+      .related-projects {
+        width: calc(100% - 40px);
+        max-width: none;
+      }
+
+      .lightbox {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100dvh;
+        place-items: start;
+        padding: 72px 12px 24px;
+        overflow: auto;
+        overscroll-behavior: contain;
+      }
+
+      .lightbox img {
+        display: block;
+        width: calc(100vw - 24px);
+        max-width: none;
+        max-height: none;
+        height: auto;
+        margin: 0 auto;
+        border-radius: 12px;
+      }
+
+      .lightbox img.is-mobile-wide {
+        width: 820px;
+        margin: 0;
+      }
+
+      body.lightbox-open .site-header {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal,
+      .scroll-zoom {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+
+    .site-home,
+    .site-nav a,
+    .case-subtitle,
+    .meta-item h3,
+    .meta-item p,
+    .copy-head p,
+    .features-text p,
+    .tablet-note,
+    .related-project-copy,
+    .portfolio-footer-resume,
+    .portfolio-footer-links,
+    .portfolio-copy-button { font-size: 19px; line-height: 26px; }
+    .meta-item h3 {
+      margin: 0;
+      color: rgba(0, 0, 0, .9);
+    }
+    .meta-item p {
+      margin: 8px 0 0;
+      color: rgba(0, 0, 0, .6);
+    }
+    @media (max-width: 767px) {
+      .figma-case { padding-top: 80px; }
+      .meta-item p { margin-top: 0; }
+      .copy-head { margin-bottom: 24px; }
+      .problem-map,
+      .features-image { margin-top: 24px; }
+      .tablet-note { margin-top: 64px; }
+      .tablet-solution { margin-top: 24px; }
+      .results-grid {
+        display: flex;
+        width: 100%;
+        margin: 0;
+        gap: 12px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        overscroll-behavior-inline: contain;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .results-grid::-webkit-scrollbar { display: none; }
+      .result-card {
+        flex: 0 0 clamp(248px, 72vw, 284px);
+        width: auto;
+        height: 326px;
+        overflow: hidden;
+        border-radius: 14px;
+        background: var(--result-bg, #f4f4f4);
+        opacity: 1 !important;
+        transform: none !important;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+      }
+      .result-card img {
+        display: none;
+      }
+      .result-card-copy {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+        padding: 16px;
+        font: 400 19px/26px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+        letter-spacing: 0;
+      }
+      .result-card-title { color: rgba(0, 0, 0, .9); }
+      .result-card-description { color: #999; }
+      .wide-asset,
+      .problem-map,
+      .features-image,
+      .old-flow,
+      .approach-image,
+      .tablet-solution,
+      .tablet-image {
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        border-radius: 14px;
+      }
+      .wide-asset img,
+      .problem-map img,
+      .features-image img,
+      .old-flow img,
+      .approach-image img,
+      .tablet-solution img,
+      .tablet-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        border-radius: inherit;
+      }
+    }
+  </style>
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="progressive-glass" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="site-header-inner">
+      <a class="site-home" href="/">home</a>
+      <nav class="site-nav" aria-label="Навигация по портфолио">
+        <a href="https://drive.google.com/file/d/1_fi4YnXSFHSJZVvkPNP3bwHaM91pyehh/view?usp=sharing" target="_blank" rel="noreferrer">resume</a>
+        <a href="#contact">contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="viewport" data-viewport>
+    <main class="figma-case" data-figma-case>
+      <section class="block hero-block">
+        <div class="title-group">
+          <h1 class="case-title">Редизайн приложения</h1>
+          <p class="case-subtitle">Пересобрала сценарий покупки курса и улучшила конверсию в оплату</p>
+        </div>
+        <div class="hero-cover" data-fullscreen><img class="scroll-zoom" data-scroll-zoom src="/assets/media/509c59708b9c9545.png" alt="Обложка кейса редизайна приложения" /></div>
+        <div class="meta-grid">
+          <article class="meta-item"><h3>Контекст</h3><p>Надо было определить будущее приложения Практикума и решить ряд текущих проблем</p></article>
+          <article class="meta-item"><h3>Моя роль</h3><p>Старший продуктовый дизайнер</p></article>
+          <article class="meta-item"><h3>Команда</h3><p>Продуктовый дизайнер
+2 разработчика
+1 QA</p></article>
+          <article class="meta-item"><h3>Задачи</h3><p>UI/UX
+Исследования
+UX-тексты
+AI</p></article>
+        </div>
+      </section>
+
+      <section class="block problem-block">
+        <div class="copy-head">
+          <h2>Проблема</h2>
+          <p>В приложении Практикума был ряд проблем, о которых мы знали, а так же то, что мы знали из исследований. Главными из которых были: сложная и непонятная навигация — юзеры просто не понимали, где и что находится. Еще отдельной болью была визуальная отличность от веба — изначально приложение Практикума в 2022 году создавали как эксперимент и не ставили задачу консистености. Из-за этого дизайн от платформы к платформе был очень разный и это фрустрировало юзеров.<br><br>Основные «проблемные» флоу выглядели так:</p>
+        </div>
+        <div class="wide-asset old-flow" data-fullscreen><img src="/assets/media/a9b866b7b7c07952.png" alt="Старая структура приложения и проблемные зоны" /></div>
+        <div class="problem-summary">
+          <h2>Основные проблемы, если резюмировать были такими:</h2>
+          <div class="problem-map" data-fullscreen><img src="/assets/media/425bc85608279181.png" alt="Схема основных проблем приложения" /></div>
+        </div>
+      </section>
+
+      <section class="block features-block">
+        <div class="features-text">
+          <h2>Неконсистентность фичей</h2>
+          <p>Важно было не просто сделать редизайн приложения, но и максимально «подружить» плафтормы не только визуально, но и по набору фичей. Я собрала схемы фичей? и приоритизировала поэтапность их интеграции в приложение во время редизайна</p>
+        </div>
+        <div class="features-image" data-fullscreen><img src="/assets/media/dd5ff3a83cd80766.png" alt="Сравнение функций в вебе и приложении" /></div>
+      </section>
+
+      <section class="block approach-block">
+        <div class="copy-head">
+          <h2>Поиск вариантов</h2>
+          <p>При поиске визуала отталкивалась прежде всего от двух принципов — простота и масштабируемость. Пробовала много разныз подходов: главный экран с виджетами, списками, акцетные картинки или наоборот бОльшая утилитарность.</p>
+        </div>
+        <div class="wide-asset approach-image" data-fullscreen><img src="/assets/media/7dda6c2336218166.png" alt="Варианты дизайна приложения" /></div>
+      </section>
+
+      <section class="block solutions-block">
+        <div class="copy-head">
+          <h2>Финальный дизайн</h2>
+          <p>В итоге я отказалась от превалирующей тёмной темы, сделала сквозную навигацию в виде классических табов, добавила глобальные шаги в позиционировании приложения — мы сделали раздел с чатами и приложение становится хабом коммуникаций студента.</p>
+        </div>
+        <div class="wide-asset final-image" data-fullscreen><img src="/assets/media/7dda6c2336218166.png" alt="Финальный набор экранов приложения" /></div>
+        <div class="phone-set">
+          <div class="phone-card" data-fullscreen><img src="/assets/media/04ce7f1e55d9979c.png" alt="Сделала главный экран проще, расставила акценты" /></div>
+          <div class="phone-card" data-fullscreen><img src="/assets/media/8c3a0b9ad6c0a584.png" alt="Упростила каталог, вытащила на слои выше фильтры и поиск" /></div>
+          <div class="phone-card" data-fullscreen><img src="/assets/media/735b1e379c2d94bc.png" alt="Помощь и все коммуникации теперь внутри приложения" /></div>
+          <div class="phone-card" data-fullscreen><img src="/assets/media/f72a43ed22ee0018.png" alt="Настройки и промо теперь в очевидном месте" /></div>
+          <div class="phone-card" data-fullscreen><img src="/assets/media/e7e09bd660874ba5.png" alt="Добавила новые фичи: умный поиск, скрытие пройденных курсов" /></div>
+          <div class="phone-card" data-fullscreen><img src="/assets/media/f6758fbe491a3ea7.png" alt="Ну, и конечно, тёмная тема" /></div>
+        </div>
+        <p class="tablet-note">Бонусом — собрала версию для планшетов, о которой давно нас просили студенты.</p>
+        <div class="wide-asset tablet-solution" data-fullscreen><img src="/assets/media/c3fa1b69b4081daa.png" alt="Собрали версию для айпадов" /></div>
+      </section>
+
+      <section class="block covers-block">
+        <div class="copy-head">
+          <h2>Генерация обложек</h2>
+          <p>Также во время работы над каталогом, я создала 200+ обложек для каталога курсов — через генерацию в Krea, GPT Image и Recraft.</p>
+        </div>
+        <div class="wide-asset tablet-image" data-fullscreen><img src="/assets/media/375cff65b909eaa4.png" alt="Примеры обложек для каталога курсов" /></div>
+      </section>
+
+      <section class="block results-block">
+        <div class="copy-head">
+          <h2 id="results-title">Итоги</h2>
+          <p>Благодаря редизайну удалось решить существующие проблемы и заложить хороший фундамент для дальшейшего масштабирования и развития приложения.</p>
+        </div>
+        <div class="results-grid">
+          <figure class="result-card" style="--result-bg:#f7ffdc" data-fullscreen>
+            <img src="/assets/media/b3b068ab9bf27712.png" alt="+9% к конверсии в покупку курса" />
+            <span class="result-card-copy"><span class="result-card-title">+9% к конверсии в покупку курса</span><span class="result-card-description">Пользователи быстрее находили подходящий курс в каталоге и чаще переходили к оплате</span></span>
+          </figure>
+          <figure class="result-card" style="--result-bg:#dcefff" data-fullscreen>
+            <img src="/assets/media/1e9b2f5179ddf20b.png" alt="4.7 — App Store, 4.8 — Google Play" />
+            <span class="result-card-copy"><span class="result-card-title">4.7 — App Store<br>4.8 — Google Play</span><span class="result-card-description">Оценка выросла и стабилизировалась за счёт органики</span></span>
+          </figure>
+          <figure class="result-card" style="--result-bg:#f4f4f4" data-fullscreen>
+            <img src="/assets/media/28821ca5db779d15.png" alt="11 из 11 респондентов прошли сценарии без подсказок" />
+            <span class="result-card-copy"><span class="result-card-title">11 из 11 респондентов прошли сценарии без подсказок</span><span class="result-card-description">Пользователи без проблем находили нужный курс и доходили до следующего шага</span></span>
+          </figure>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <section class="related-projects reveal" aria-labelledby="related-projects-title">
+    <h2 id="related-projects-title">Другие проекты</h2>
+    <div class="related-projects-grid">
+      <a class="related-project-card" href="/purchase-flow/">
+        <div class="related-project-visual">
+          <img src="/assets/media/02887c18b84118a7.png" alt="Превью кейса о флоу покупки курсов" />
+        </div>
+        <div class="related-project-copy">
+          <p>Флоу покупки курсов</p>
+          <p>Пересобрала путь от выбора курса до оплаты</p>
+        </div>
+      </a>
+      <a class="related-project-card" href="/career-navigator/">
+        <div class="related-project-visual">
+          <img src="/assets/media/3b108152143a50cf.png" alt="Превью кейса о карьерном навигаторе" />
+        </div>
+        <div class="related-project-copy">
+          <p>Карьерный навигатор</p>
+          <p>Связала карьерный гэп, обучение и вакансии</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <footer class="portfolio-footer" id="contact">
+    <div class="portfolio-footer-inner">
+      <button class="portfolio-copy-button" type="button" data-copy="velichkosnezhanna@yandex.ru">copy email</button>
+      <div class="portfolio-footer-links">
+        <a class="portfolio-footer-resume" href="https://drive.google.com/file/d/1_fi4YnXSFHSJZVvkPNP3bwHaM91pyehh/view?usp=sharing" target="_blank" rel="noreferrer">resume</a>
+        <a href="https://www.linkedin.com/in/snezhanna-velichko-a382a1275/" target="_blank" rel="noreferrer">lnkdn</a>
+        <a href="https://t.me/snezhannav" target="_blank" rel="noreferrer">tg</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-top-button" type="button" data-scroll-top aria-label="Наверх" title="Наверх">↑</button>
+
+  <script>
+    const scrollTopButton = document.querySelector('[data-scroll-top]');
+    const updateScrollTopButton = () => {
+      scrollTopButton?.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.6);
+    };
+    scrollTopButton?.addEventListener('click', () => {
+      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+      window.scrollTo({ top: 0, behavior });
+    });
+    updateScrollTopButton();
+    window.addEventListener('scroll', updateScrollTopButton, { passive: true });
+    window.addEventListener('resize', updateScrollTopButton, { passive: true });
+  </script>
+
+  <script>
+    document.querySelectorAll('[data-copy]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        await navigator.clipboard.writeText(button.dataset.copy || '');
+        const label = button.textContent;
+        button.textContent = 'copied';
+        window.setTimeout(() => { button.textContent = label; }, 1400);
+      });
+    });
+  </script>
+
+  <div class="lightbox" data-lightbox aria-hidden="true">
+    <button class="lightbox-close" type="button" data-lightbox-close aria-label="Закрыть полноэкранный просмотр">×</button>
+    <img data-lightbox-image alt="" />
+  </div>
+
+  <script>
+    const viewport = document.querySelector('[data-viewport]');
+    const figmaCase = document.querySelector('[data-figma-case]');
+    const DESIGN_WIDTH = 1280;
+    const DESIGN_HEIGHT = 9119.1103515625;
+
+    function fitStage() {
+      const scale = Math.min(1, window.innerWidth / DESIGN_WIDTH);
+      if (!figmaCase || !viewport) return;
+      figmaCase.style.transform = `translateX(-50%) scale(${scale})`;
+      viewport.style.minHeight = `${DESIGN_HEIGHT * scale}px`;
+    }
+    window.addEventListener('resize', fitStage, { passive: true });
+    fitStage();
+
+    const revealItems = [
+      ...document.querySelectorAll('.title-group, .meta-item, .copy-head, .features-text, .tablet-note, .wide-asset, .features-image, .phone-card, .result-card, .related-projects')
+    ];
+    revealItems.forEach((item, index) => {
+      item.classList.add('reveal', `reveal-delay-${index % 4}`);
+    });
+
+    if ('IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -8% 0px'
+      });
+      revealItems.forEach((item) => revealObserver.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add('is-visible'));
+    }
+
+    const scrollZoomItems = Array.from(document.querySelectorAll('[data-scroll-zoom]'));
+    let scrollZoomFrame = 0;
+    function updateScrollZoom() {
+      scrollZoomFrame = 0;
+      scrollZoomItems.forEach((el) => {
+        const anchor = el.closest('.hero-cover') || el;
+        const rect = anchor.getBoundingClientRect();
+        const viewport = window.innerHeight || document.documentElement.clientHeight;
+        const progress = Math.min(1, Math.max(0, (viewport - rect.top) / (viewport + rect.height)));
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const scale = 1.42 - 0.47 * eased;
+        el.style.transform = `scale(${scale.toFixed(4)})`;
+      });
+    }
+    function requestScrollZoomUpdate() {
+      if (scrollZoomFrame) return;
+      scrollZoomFrame = window.requestAnimationFrame(updateScrollZoom);
+    }
+    updateScrollZoom();
+    window.addEventListener('scroll', requestScrollZoomUpdate, { passive: true });
+    window.addEventListener('resize', requestScrollZoomUpdate);
+
+    const lightbox = document.querySelector('[data-lightbox]');
+    const lightboxImage = document.querySelector('[data-lightbox-image]');
+    const closeLightbox = document.querySelector('[data-lightbox-close]');
+
+    document.querySelectorAll('[data-fullscreen]').forEach((item) => {
+      item.addEventListener('click', () => {
+        const image = item.querySelector('img');
+        if (!image || !lightbox || !lightboxImage) return;
+        const updateMobileSize = () => {
+          const isMobileWide = window.innerWidth <= 767
+            && lightboxImage.naturalWidth / lightboxImage.naturalHeight > 1.15;
+          lightboxImage.classList.toggle('is-mobile-wide', isMobileWide);
+          if (isMobileWide) {
+            lightbox.scrollTop = 0;
+            lightbox.scrollLeft = 0;
+          }
+        };
+        lightboxImage.onload = updateMobileSize;
+        lightboxImage.src = image.currentSrc || image.src;
+        lightboxImage.alt = image.alt || '';
+        if (lightboxImage.complete) updateMobileSize();
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        if (window.innerWidth <= 767) {
+          document.body.classList.add('lightbox-open');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+
+    function hideLightbox() {
+      lightbox?.classList.remove('open');
+      lightbox?.setAttribute('aria-hidden', 'true');
+      lightboxImage?.classList.remove('is-mobile-wide');
+      if (lightboxImage) lightboxImage.onload = null;
+      document.body.classList.remove('lightbox-open');
+      document.body.style.overflow = '';
+    }
+    closeLightbox?.addEventListener('click', hideLightbox);
+    lightbox?.addEventListener('click', (event) => {
+      if (event.target === lightbox) hideLightbox();
+    });
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') hideLightbox();
+    });
+  </script>
+</body>
+</html>

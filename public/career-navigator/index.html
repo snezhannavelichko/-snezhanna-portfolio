@@ -1,0 +1,1156 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Карьерный навигатор</title>
+  <meta name="description" content="Кейс портфолио: AI-сервис Яндекс Практикума для карьерного пути пользователя." />
+  <link rel="stylesheet" href="/assets/styles/fonts.css" />
+  <style>
+    :root {
+      --page: 1280px;
+      --content: 1152px;
+      --text: rgba(0,0,0,.9);
+      --muted: #999999;
+      --title: rgba(0,0,0,.85);
+      --body: #999999;
+      --caption: rgba(0,0,0,.4);
+      --soft: #f5f5f5;
+      --ease: cubic-bezier(.19, 1, .22, 1);
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      background: transparent;
+      color: var(--text);
+    }
+
+    * { box-sizing: border-box; }
+    html { background: #fff; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      padding-top: 90px;
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    h1, h2, h3, p { margin: 0; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .top-link {
+      width: var(--content);
+      max-width: calc(100% - 128px);
+      min-height: 72px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--title);
+      font: 400 19px/23px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+    }
+    .top-link-icon {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--soft);
+      font-size: 22px;
+      transition: transform 180ms var(--ease), background 180ms var(--ease);
+    }
+    .top-link:hover .top-link-icon { transform: translateX(-2px); background: #ececec; }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      z-index: 500;
+      width: 100%;
+      height: 90px;
+      color: rgba(0,0,0,.9);
+      background: transparent;
+      border-bottom: 0;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .site-header-inner {
+      position: relative;
+      z-index: 2;
+      width: var(--content);
+      max-width: calc(100% - 128px);
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    .site-home,
+    .site-nav a { font: 400 20px/26px -apple-system, BlinkMacSystemFont, "Inter", sans-serif; }
+    .site-home { text-decoration: none; }
+    .site-nav { display: flex; gap: 31px; }
+
+    .progressive-glass {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+      pointer-events: none;
+      background: none;
+    }
+    .progressive-glass span { position: absolute; inset: 0; pointer-events: none; }
+    .progressive-glass span:nth-child(1) { backdrop-filter: blur(.05859375px); -webkit-backdrop-filter: blur(.05859375px); mask-image: linear-gradient(to top, transparent 0%, #000 12.5%, #000 25%, transparent 37.5%); -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 12.5%, #000 25%, transparent 37.5%); }
+    .progressive-glass span:nth-child(2) { backdrop-filter: blur(.1171875px); -webkit-backdrop-filter: blur(.1171875px); mask-image: linear-gradient(to top, transparent 12.5%, #000 25%, #000 37.5%, transparent 50%); -webkit-mask-image: linear-gradient(to top, transparent 12.5%, #000 25%, #000 37.5%, transparent 50%); }
+    .progressive-glass span:nth-child(3) { backdrop-filter: blur(.234375px); -webkit-backdrop-filter: blur(.234375px); mask-image: linear-gradient(to top, transparent 25%, #000 37.5%, #000 50%, transparent 62.5%); -webkit-mask-image: linear-gradient(to top, transparent 25%, #000 37.5%, #000 50%, transparent 62.5%); }
+    .progressive-glass span:nth-child(4) { backdrop-filter: blur(.46875px); -webkit-backdrop-filter: blur(.46875px); mask-image: linear-gradient(to top, transparent 37.5%, #000 50%, #000 62.5%, transparent 75%); -webkit-mask-image: linear-gradient(to top, transparent 37.5%, #000 50%, #000 62.5%, transparent 75%); }
+    .progressive-glass span:nth-child(5) { backdrop-filter: blur(.9375px); -webkit-backdrop-filter: blur(.9375px); mask-image: linear-gradient(to top, transparent 50%, #000 62.5%, #000 75%, transparent 87.5%); -webkit-mask-image: linear-gradient(to top, transparent 50%, #000 62.5%, #000 75%, transparent 87.5%); }
+    .progressive-glass span:nth-child(6) { backdrop-filter: blur(1.875px); -webkit-backdrop-filter: blur(1.875px); mask-image: linear-gradient(to top, transparent 62.5%, #000 75%, #000 87.5%, transparent 100%); -webkit-mask-image: linear-gradient(to top, transparent 62.5%, #000 75%, #000 87.5%, transparent 100%); }
+    .progressive-glass span:nth-child(7) { backdrop-filter: blur(3.75px); -webkit-backdrop-filter: blur(3.75px); mask-image: linear-gradient(to top, transparent 75%, #000 87.5%, #000 100%, transparent 112.5%); -webkit-mask-image: linear-gradient(to top, transparent 75%, #000 87.5%, #000 100%, transparent 112.5%); }
+    .progressive-glass span:nth-child(8) { backdrop-filter: blur(7.5px); -webkit-backdrop-filter: blur(7.5px); mask-image: linear-gradient(to top, transparent 87.5%, #000 100%, #000 112.5%, transparent 125%); -webkit-mask-image: linear-gradient(to top, transparent 87.5%, #000 100%, #000 112.5%, transparent 125%); }
+
+    .portfolio-footer {
+      width: min(100%, 1280px);
+      height: 90px;
+      margin: 120px auto 0;
+      padding: 32px 64px;
+      color: rgba(0,0,0,.6);
+    }
+    .portfolio-footer-inner { display: flex; align-items: flex-start; justify-content: space-between; white-space: nowrap; }
+    .portfolio-footer-resume { font: 400 20px/26px -apple-system, BlinkMacSystemFont, "Inter", sans-serif; }
+    .portfolio-footer-links { display: flex; align-items: center; gap: 56px; font: 400 19px/normal -apple-system, BlinkMacSystemFont, "Inter", sans-serif; }
+    .portfolio-copy-button { padding: 0; border: 0; background: transparent; color: inherit; font: 400 19px/normal -apple-system, BlinkMacSystemFont, "Inter", sans-serif; cursor: pointer; }
+    .scroll-top-button {
+      position: fixed;
+      right: 32px;
+      bottom: 32px;
+      z-index: 450;
+      display: grid;
+      width: 52px;
+      height: 52px;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #fff;
+      color: rgba(0,0,0,.9);
+      font: 400 26px/1 -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: opacity 220ms ease, transform 220ms ease, background 180ms ease;
+    }
+    .scroll-top-button.is-visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .scroll-top-button:hover { background: #f7f7f7; }
+    .scroll-top-button:focus-visible { outline: 2px solid rgba(0,0,0,.75); outline-offset: 3px; }
+
+    .case {
+      width: var(--page);
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 56px 64px 80px;
+    }
+    .hero,
+    .section,
+    .results,
+    .conclusion {
+      width: var(--content);
+      max-width: 100%;
+      margin: 0 0 120px;
+    }
+    .hero-head {
+      width: 1024px;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+    .case-title {
+      color: var(--title);
+      font: 400 40px/48px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      letter-spacing: -0.24px;
+    }
+    .case-subtitle,
+    .body {
+      max-width: 100%;
+      color: var(--body);
+      font: 400 20px/26px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      letter-spacing: 0;
+      white-space: pre-line;
+    }
+    .case-subtitle { width: 1024px; }
+    .body { width: 1125px; }
+    .hero-cover {
+      width: 100%;
+      height: 740px;
+      margin: 0 0 44px;
+      border-radius: 20px;
+      background: var(--soft);
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+    .hero-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.52);
+      transform-origin: center bottom;
+      will-change: transform;
+    }
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(4, 232px);
+      gap: 64px;
+      width: 100%;
+    }
+    .facts dt {
+      margin: 0 0 8px;
+      color: var(--text);
+      font: 400 20px/26px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+    }
+    .facts dd {
+      margin: 0;
+      color: var(--body);
+      font: 400 20px/26px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      white-space: pre-line;
+    }
+
+    .copy {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+    .context-section .copy {
+      gap: 6px;
+    }
+    .search-section {
+      gap: 80px;
+    }
+    h2 {
+      color: var(--text);
+      font: 400 28px/36px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      letter-spacing: 0;
+    }
+    h3,
+    .list-title {
+      color: var(--text);
+      font: 400 20px/26px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+    }
+    .image-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .checkout-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+    .checkout-flow-item {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .checkout-flow-item .copy {
+      margin-bottom: 0;
+    }
+    .shot {
+      width: 100%;
+      margin: 0;
+      cursor: zoom-in;
+    }
+    .shot img {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+    }
+    .shot figcaption {
+      margin-top: 12px;
+      color: var(--caption);
+      text-align: center;
+      font: 400 16px/22px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .two-col .shot img { border-radius: 16px; }
+    .section-row {
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+    .results {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      margin-bottom: 0;
+    }
+    .results .copy {
+      margin-bottom: 0;
+    }
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      width: 100%;
+    }
+    .result-card {
+      width: 100%;
+      height: 322px;
+      margin: 0;
+      overflow: hidden;
+      border-radius: 16px;
+      background: transparent;
+      cursor: zoom-in;
+    }
+    .result-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+    }
+    .result-card-copy { display: none; }
+    .related-projects {
+      width: var(--content);
+      max-width: calc(100% - 128px);
+      margin: 40px auto 80px;
+    }
+    .related-projects h2 {
+      margin-bottom: 40px;
+      color: var(--title);
+      font: 400 28px/36px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+    }
+    .related-projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .related-project-card {
+      display: flex;
+      min-width: 0;
+      height: auto;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      overflow: hidden;
+      border-radius: 20px;
+      background: var(--soft);
+      cursor: pointer;
+    }
+    .related-project-card:hover,
+    .related-project-card:focus-visible {
+      outline: none;
+    }
+    .related-project-visual {
+      position: relative;
+      width: 100%;
+      height: 294px;
+      flex: 0 0 294px;
+      overflow: hidden;
+      background: var(--soft);
+    }
+    .related-project-visual::before,
+    .related-project-visual::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      z-index: 2;
+      width: 32px;
+      height: 32px;
+      background: var(--soft);
+      pointer-events: none;
+    }
+    .related-project-visual::before {
+      left: 0;
+    }
+    .related-project-visual::after {
+      right: 0;
+    }
+    .related-cover-purchase,
+    .related-cover-app {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 520ms cubic-bezier(.22, 1, .36, 1);
+      transform-origin: center;
+      will-change: transform;
+    }
+    .related-cover-purchase,
+    .related-cover-app { transform: scale(1); }
+    .related-project-card:hover .related-cover-purchase,
+    .related-project-card:focus-visible .related-cover-purchase,
+    .related-project-card:hover .related-cover-app,
+    .related-project-card:focus-visible .related-cover-app {
+      transform: scale(1.04);
+    }
+    .related-cover-app {
+      object-fit: contain;
+      transform: scale(.94);
+    }
+    .related-project-card:hover .related-cover-app,
+    .related-project-card:focus-visible .related-cover-app {
+      transform: scale(.98);
+    }
+    .related-project-copy {
+      display: flex;
+      width: 100%;
+      flex: 0 0 auto;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 24px 24px;
+      font: 400 19px/25px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+    }
+    .related-project-copy p { margin: 0; }
+    .related-project-copy p:first-child {
+      color: var(--text);
+    }
+    .related-project-copy p:last-child {
+      color: var(--muted);
+    }
+
+    .reveal,
+    .shot,
+    .result-card {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+    }
+    .reveal.is-visible,
+    .shot.is-visible,
+    .result-card.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 56px;
+      background: rgba(0,0,0,.68);
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: min(96vw, 1600px);
+      max-height: 90vh;
+      border-radius: 20px;
+      background: #fff;
+      object-fit: contain;
+    }
+    .lightbox-close {
+      position: fixed;
+      top: 32px;
+      right: 32px;
+      width: 56px;
+      height: 56px;
+      border: 0;
+      border-radius: 999px;
+      background: #fff;
+      color: #111;
+      font: 400 36px/1 -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      body { padding-top: 64px; }
+      .site-header { height: 64px; }
+      .site-header-inner { width: calc(100% - 32px); max-width: none; gap: 16px; }
+      .site-home { font-size: 15px; }
+      .site-nav { gap: 16px; }
+      .site-nav a { font-size: 13px; line-height: 18px; }
+      .portfolio-footer { width: 100%; height: auto; padding: 24px 16px; }
+      .portfolio-footer-inner { gap: 24px; }
+      .portfolio-footer-resume { font-size: 15px; line-height: 20px; }
+      .portfolio-footer-links { gap: 20px; font-size: 14px; line-height: 20px; }
+      .top-link,
+      .related-projects { max-width: calc(100% - 32px); }
+      .case { padding: 40px 16px 64px; }
+      .hero, .section { margin-bottom: 80px; }
+      .case-title { font-size: 40px; line-height: 48px; }
+      .hero-cover { height: auto; aspect-ratio: 1152 / 740; }
+      .facts, .two-col, .results-grid, .related-projects-grid { grid-template-columns: 1fr; }
+      .facts { gap: 28px; }
+      .result-card { height: auto; aspect-ratio: 2987 / 2576; }
+      .related-project-card { height: auto; }
+      .related-project-visual {
+        height: auto;
+        aspect-ratio: 568 / 294;
+        flex-basis: auto;
+      }
+      .related-project-copy {
+        height: auto;
+        min-height: 0;
+        flex-basis: auto;
+      }
+      .scroll-top-button { right: 16px; bottom: 16px; width: 44px; height: 44px; font-size: 22px; }
+    }
+
+    @media (min-width: 920px) and (max-width: 1199px) {
+      :root {
+        --page: 100%;
+        --content: calc(100vw - 128px);
+      }
+
+      .case {
+        width: 100%;
+      }
+
+      .facts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 32px 48px;
+      }
+
+      .results-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .result-card {
+        height: auto;
+        aspect-ratio: 2987 / 2576;
+      }
+    }
+
+    @media (max-width: 919px) {
+      :root {
+        --page: 100%;
+        --content: calc(100vw - 40px);
+      }
+
+      .site-header-inner,
+      .top-link,
+      .related-projects {
+        width: var(--content);
+        max-width: none;
+      }
+
+      .case {
+        width: 100%;
+        padding: 40px 20px 72px;
+      }
+
+      .hero,
+      .section,
+      .results,
+      .conclusion {
+        margin-bottom: 96px;
+      }
+
+      .hero-cover {
+        margin-bottom: 40px;
+      }
+
+      .hero-cover img {
+        transform: none !important;
+        object-fit: contain;
+      }
+
+      .facts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px 32px;
+      }
+
+      .two-col,
+      .results-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .result-card {
+        height: auto;
+        aspect-ratio: 2987 / 2576;
+      }
+
+      .shot img,
+      .two-col .shot img {
+        height: auto;
+        object-fit: contain;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .site-nav { display: none; }
+
+      .case-title {
+        font-size: 32px;
+        line-height: 38px;
+      }
+
+      .case-subtitle,
+      .body,
+      .facts dt,
+      .facts dd,
+      h3,
+      .list-title {
+        font-size: 20px;
+        line-height: 26px;
+      }
+
+      h2 {
+        font-size: 26px;
+        line-height: 32px;
+      }
+
+      .hero,
+      .section,
+      .results,
+      .conclusion {
+        margin-bottom: 72px;
+      }
+
+      .facts,
+      .two-col,
+      .results-grid,
+      .related-projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .image-stack,
+      .checkout-flow-item,
+      .results {
+        gap: 40px;
+      }
+
+      .section-row,
+      .checkout-flow {
+        gap: 48px;
+      }
+
+      .shot img,
+      .two-col .shot img,
+      .hero-cover {
+        border-radius: 14px;
+      }
+
+      .portfolio-footer-inner {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .lightbox {
+        display: none;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100dvh;
+        place-items: start;
+        padding: 72px 12px 24px;
+        overflow: auto;
+        overscroll-behavior: contain;
+      }
+
+      .lightbox.open {
+        display: block;
+      }
+
+      .lightbox img {
+        display: block;
+        width: calc(100vw - 24px);
+        max-width: none;
+        max-height: none;
+        height: auto;
+        margin: 0 auto;
+        border-radius: 12px;
+      }
+
+      .lightbox img.is-mobile-wide {
+        width: 820px;
+        margin: 0;
+      }
+
+      body.lightbox-open .site-header {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal,
+      .shot,
+      .result-card,
+      .hero-cover img,
+      .related-cover-purchase,
+      .related-cover-app {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+      .related-cover-app { transform: scale(.94) !important; }
+    }
+
+    body.spacing-gravity .case {
+      padding-top: 48px;
+    }
+    body.spacing-gravity .hero,
+    body.spacing-gravity .section,
+    body.spacing-gravity .results {
+      margin-bottom: 96px;
+    }
+    body.spacing-gravity .hero-head {
+      margin-bottom: 40px;
+    }
+    body.spacing-gravity .hero-cover {
+      margin-bottom: 56px;
+    }
+    body.spacing-gravity .copy {
+      margin-bottom: 40px;
+    }
+    body.spacing-gravity .section-row {
+      gap: 80px;
+    }
+    body.spacing-gravity .image-stack {
+      gap: 40px;
+    }
+    body.spacing-gravity .results {
+      gap: 40px;
+    }
+    body.spacing-gravity .results-grid {
+      gap: 24px;
+    }
+    body.spacing-gravity .related-projects {
+      margin-top: 96px;
+    }
+    .site-home,
+    .site-nav a,
+    .case-subtitle,
+    .body,
+    .facts dt,
+    .facts dd,
+    h3,
+    .list-title,
+    .related-project-copy,
+    .portfolio-footer-resume,
+    .portfolio-footer-links,
+    .portfolio-copy-button { font-size: 19px; line-height: 26px; }
+    .facts dt {
+      margin: 0 0 8px;
+      color: rgba(0, 0, 0, .9);
+    }
+    .facts dd {
+      margin: 0;
+      color: var(--body);
+    }
+    @media (max-width: 767px) {
+      body.spacing-gravity .case { padding-top: 80px; }
+      .facts dt { margin-bottom: 0; }
+      body.spacing-gravity .copy,
+      .copy { margin-bottom: 24px; }
+      body.spacing-gravity .section-row,
+      .section-row,
+      .checkout-flow { gap: 64px; }
+      .checkout-flow-item { gap: 24px; }
+      body.spacing-gravity .results,
+      .results { gap: 24px; }
+      .results-grid {
+        display: flex;
+        width: 100%;
+        margin: 0;
+        gap: 12px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        overscroll-behavior-inline: contain;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .results-grid::-webkit-scrollbar { display: none; }
+      .result-card {
+        flex: 0 0 clamp(248px, 72vw, 284px);
+        width: auto;
+        height: 326px;
+        aspect-ratio: auto;
+        border-radius: 14px;
+        background: var(--result-bg, #f4f4f4);
+        overflow: hidden;
+        opacity: 1 !important;
+        transform: none !important;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+      }
+      .result-card img {
+        display: none;
+      }
+      .result-card-copy {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+        padding: 16px;
+        font: 400 19px/26px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+        letter-spacing: 0;
+      }
+      .result-card-title { color: rgba(0, 0, 0, .9); }
+      .result-card-description { color: #999; }
+      .shot,
+      .two-col .shot {
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        border-radius: 14px;
+      }
+      .shot img,
+      .two-col .shot img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        border-radius: inherit;
+      }
+    }
+  </style>
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="progressive-glass" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="site-header-inner">
+      <a class="site-home" href="/">home</a>
+      <nav class="site-nav" aria-label="Навигация по портфолио">
+        <a href="https://drive.google.com/file/d/1_fi4YnXSFHSJZVvkPNP3bwHaM91pyehh/view?usp=sharing" target="_blank" rel="noreferrer">resume</a>
+        <a href="#contact">contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="case">
+    <section class="hero reveal">
+      <div class="hero-head">
+        <h1 class="case-title">Карьерный навигатор</h1>
+        <p class="case-subtitle">Спроектировала AI-сервис Практикума, который помогает понять карьерный гэп, собрать план развития и перейти к подходящим вакансиям.</p>
+      </div>
+      <figure class="hero-cover" data-fullscreen>
+        <img data-scroll-zoom src="/assets/media/3b108152143a50cf.png" alt="Карьерный навигатор на ноутбуке и телефоне" />
+      </figure>
+      <dl class="facts">
+        <div><dt>Контекст</dt><dd>Нужно было вернуть пользователя в Практикум после первого курса и сопровождать его дальше по карьерному пути.</dd></div>
+        <div><dt>Моя роль</dt><dd>Старший продуктовый дизайнер</dd></div>
+        <div><dt>Команда</dt><dd>Продуктовый дизайнер
+Команда разработки
+PMM</dd></div>
+        <div><dt>Задачи</dt><dd>UX/UI, продуктовая логика, исследования, UX-тексты, аналитика</dd></div>
+      </dl>
+    </section>
+
+    <section class="section context-section reveal">
+      <div class="copy">
+        <h2>Контекст</h2>
+        <p class="body">Практикум — сервис онлайн-образования с курсами, магистратурами и Карьерным центром. Но пользователь часто приходил за одной задачей: покупал курс, закрывал её и больше не возвращался.
+
+Нужно было найти сценарий, который будет полезен не только во время обучения или покупки, а на всём карьерном пути: от выбора направления до понимания следующего шага в профессии.</p>
+      </div>
+      <figure class="shot" data-fullscreen>
+        <img src="/assets/media/a33bee54edcae44c.png" alt="Схема текущей экосистемы Практикума" />
+      </figure>
+    </section>
+
+    <section class="section section-row search-section reveal">
+      <div>
+        <div class="copy">
+          <h2>Поиск решений</h2>
+          <p class="body">Первой идеей был расширенный каталог: не просто список курсов, а подборка следующих шагов под карьерную цель. Но даже такой формат оставался витриной и не отвечал на главный запрос пользователя.
+
+Человеку нужно было понять, где он сейчас, чего не хватает до желаемой роли и как двигаться дальше. Поэтому мы пошли исследовать рынок и пользовательские сценарии.</p>
+        </div>
+        <figure class="shot" data-fullscreen>
+          <img src="/assets/media/a41d56eea4a43f16.png" alt="Первый вариант с каталогом курсов" />
+        </figure>
+      </div>
+      <div>
+        <div class="copy">
+          <p class="body">Мы провели интервью и количественные исследования с текущими студентами и внешними респондентами. Так выявили карьерные боли, которые мешали людям понять, куда двигаться дальше.</p>
+        </div>
+        <figure class="shot" data-fullscreen>
+          <img src="/assets/media/4568f144b72c4d1a.png" alt="Боли пользователей и продуктовые сценарии" />
+        </figure>
+      </div>
+      <div>
+        <div class="copy">
+          <p class="body">Мы разложили пользователей на сегменты, чтобы не делать один универсальный сценарий для всех. У людей были разные стартовые точки: выбор профессии, обучение, резюме или поиск подходящих вакансий.
+
+Так мы выделили первые сценарии продукта: карьерный профиль, оценку навыков, рекомендации, вакансии, анализ резюме и трекер откликов.</p>
+        </div>
+        <figure class="shot" data-fullscreen>
+          <img src="/assets/media/400562bd709cdf3a.png" alt="Сегменты пользователей карьерного навигатора" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section section-row reveal">
+      <div>
+        <div class="copy">
+          <h2>Решение</h2>
+          <p class="body">После исследований мы пришли к идее карьерного навигатора: сервиса, который показывает текущую точку пользователя, карьерный гэп и следующий шаг — что изучить, где искать возможности и как усилить резюме.
+
+В продукт можно войти двумя путями: загрузить резюме или собрать профиль вручную. Так мы не ограничиваемся пользователями с готовым резюме и не теряем тех, кто ещё выбирает направление или не готов загружать документ.
+
+Поэтому мы добавили вход без резюме и короткий скрининг: профессия, опыт и навыки. Так пользователь быстрее попадает в продукт и получает первые рекомендации без тяжёлого шага на старте.</p>
+        </div>
+        <figure class="shot" data-fullscreen>
+          <img src="/assets/media/10571d2cbce0d349.png" alt="Загрузка резюме или пропуск шага" />
+        </figure>
+      </div>
+      <div>
+        <div class="copy">
+          <p class="body">В скрининге спрашиваем только то, что нужно для первого результата: профессию, опыт и навыки. Этого хватает, чтобы показать карьерный гэп и персональные рекомендации без перегруза на входе.</p>
+        </div>
+        <figure class="shot" data-fullscreen>
+          <img src="/assets/media/ee731b6fc10efaf9.png" alt="Вопросы скрининга карьерного навигатора" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section section-row reveal">
+      <div>
+        <div class="copy">
+          <h2>Показываем план развития</h2>
+          <p class="body">После скрининга пользователь попадает в «Мою карьеру»: видит грейд, навыки, карьерный гэп и рекомендации.
+
+План связан с рынком: показывает, какие навыки встречаются в вакансиях, как они влияют на зарплату и чем их прокачать.</p>
+        </div>
+        <figure class="shot" data-fullscreen>
+          <img src="/assets/media/7f5f8c2fb91ee49b.png" alt="Первая часть персонального плана развития" />
+        </figure>
+      </div>
+      <div>
+        <div class="copy">
+          <p class="body">Для каждого навыка показываем не только курсы Практикума, но и статьи, медиа, каналы и небольшие задания.
+
+Так Навигатор работает не как витрина курсов, а как карьерный помощник, который подсказывает следующий шаг под задачу пользователя.</p>
+        </div>
+        <figure class="shot" data-fullscreen>
+          <img src="/assets/media/ac9d6a086dfaab3b.png" alt="Вторая часть персонального плана развития" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section section-row reveal">
+      <div>
+        <div class="copy">
+          <h2>Показываем вакансии</h2>
+          <p class="body">Следующий сценарий — перейти от плана к рынку. В разделе вакансий пользователь видит агрегированный каталог и фильтрует его по профессии, опыту, формату работы и другим параметрам.
+
+Если профиль уже собран, вакансии подбираются точнее: пользователь видит не абстрактный список ролей, а реальные предложения и понимает, насколько готов к отклику.</p>
+        </div>
+        <figure class="shot" data-fullscreen>
+          <img src="/assets/media/9b1ceffe562524e8.png" alt="Список подходящих вакансий" />
+        </figure>
+      </div>
+      <div>
+        <div class="copy">
+          <p class="body">В карточке вакансии пользователь смотрит описание, требования и компанию. Главное — шанс: Навигатор сравнивает профиль и резюме с вакансией, показывает процент совпадения, сильные стороны и пробелы.
+
+Мы не ограничились числом «75%»: важно было объяснить, почему шанс такой и что можно поправить перед откликом.</p>
+        </div>
+        <figure class="shot" data-fullscreen>
+          <img src="/assets/media/edb47593b3dae2b7.png" alt="Детальная страница вакансии и матч с навыками" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section section-row reveal">
+      <div>
+        <div class="copy">
+          <h2>Анализ резюме</h2>
+          <p class="body">Пользователь мог загрузить резюме и получить разбор: сильные стороны, зоны роста и советы для ATS-фильтров.
+
+Это продолжало карьерный план: показывало, что мешает выглядеть сильнее для выбранной профессии и какие правки повысят шанс отклика.</p>
+        </div>
+        <figure class="shot" data-fullscreen>
+          <img src="/assets/media/2a42778d4b9ac70b.png" alt="Анализ резюме и карьерного гэпа" />
+        </figure>
+      </div>
+      <div class="checkout-flow">
+        <div class="checkout-flow-item">
+          <div class="copy">
+            <h2>Чекаут</h2>
+            <p class="body">Для монетизации проверяли покупку дополнительных шансов и ИИ-разборов резюме. Оплата встроена как продолжение сценария: пользователь тратит шанс на важную вакансию, получает разбор и понимает, что улучшить перед откликом.</p>
+          </div>
+          <figure class="shot" data-fullscreen>
+            <img src="/assets/media/a936ad8dd677cd07.png" alt="Покупка проверки шансов на вакансию" />
+          </figure>
+        </div>
+        <div class="checkout-flow-item">
+          <p class="body">В тарифах объединили шансы и ИИ-разборы резюме, чтобы пользователь мог выбрать пакет под свой темп поиска работы.</p>
+          <figure class="shot" data-fullscreen>
+            <img src="/assets/media/14cae3e9d090baca.png" alt="Тарифы карьерного навигатора" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="results reveal">
+      <div class="copy">
+        <h2 id="results-title">Итоги</h2>
+        <p class="body">Карьерный навигатор стал новым входом в экосистему Практикума: помогал понять карьерный гэп и перейти к обучению, которое закрывает пробелы.</p>
+      </div>
+      <div class="results-grid">
+        <figure class="result-card" style="--result-bg:#f7ffdc" data-fullscreen>
+          <img src="/assets/media/4f999e9633efad17.png" alt="31% переходили в рекомендации курсов" />
+          <span class="result-card-copy"><span class="result-card-title">31% пользователей переходили в рекомендации курсов Практикума</span><span class="result-card-description">Рекомендации связали карьерный гэп с обучением и стали мостиком в основной продукт</span></span>
+        </figure>
+        <figure class="result-card" style="--result-bg:#dcefff" data-fullscreen>
+          <img src="/assets/media/dddb65841ff9cd4e.png" alt="74% проверили шанс на вакансию" />
+          <span class="result-card-copy"><span class="result-card-title">74% проверили шанс на вакансию</span><span class="result-card-description">Пользователи быстро считывали ценность мэтча: видели, где уже подходят, а что стоит подтянуть</span></span>
+        </figure>
+        <figure class="result-card" style="--result-bg:#f4f4f4" data-fullscreen>
+          <img src="/assets/media/afbef0cfe7ab257a.png" alt="18% вернулись к плану развития" />
+          <span class="result-card-copy"><span class="result-card-title">18% вернулись к плану развития</span><span class="result-card-description">Сценарий начал работать на ретеншен: пользователь мог вернуться к карьерной задаче после первого визита</span></span>
+        </figure>
+      </div>
+    </section>
+
+  </main>
+
+  <section class="related-projects reveal" aria-labelledby="related-projects-title">
+    <h2 id="related-projects-title">Другие проекты</h2>
+    <div class="related-projects-grid">
+      <a class="related-project-card" href="/purchase-flow/">
+        <div class="related-project-visual">
+          <img class="related-cover-purchase" src="/assets/media/02887c18b84118a7.png" alt="Превью кейса о флоу покупки курсов" />
+        </div>
+        <div class="related-project-copy">
+          <p>Флоу покупки курсов</p>
+          <p>Пересобрала путь от выбора курса до оплаты</p>
+        </div>
+      </a>
+      <a class="related-project-card" href="/app-redesign/">
+        <div class="related-project-visual">
+          <img class="related-cover-app" src="/assets/media/152a42dcf6470a52.png" alt="Превью кейса о редизайне приложения" />
+        </div>
+        <div class="related-project-copy">
+          <p>Редизайн приложения</p>
+          <p>Обновила мобильный опыт обучения в Практикуме</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <footer class="portfolio-footer" id="contact">
+    <div class="portfolio-footer-inner">
+      <button class="portfolio-copy-button" type="button" data-copy="velichkosnezhanna@yandex.ru">copy email</button>
+      <div class="portfolio-footer-links">
+        <a class="portfolio-footer-resume" href="https://drive.google.com/file/d/1_fi4YnXSFHSJZVvkPNP3bwHaM91pyehh/view?usp=sharing" target="_blank" rel="noreferrer">resume</a>
+        <a href="https://www.linkedin.com/in/snezhanna-velichko-a382a1275/" target="_blank" rel="noreferrer">lnkdn</a>
+        <a href="https://t.me/snezhannav" target="_blank" rel="noreferrer">tg</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-top-button" type="button" data-scroll-top aria-label="Наверх" title="Наверх">↑</button>
+
+  <script>
+    const scrollTopButton = document.querySelector('[data-scroll-top]');
+    const updateScrollTopButton = () => {
+      scrollTopButton?.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.6);
+    };
+    scrollTopButton?.addEventListener('click', () => {
+      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+      window.scrollTo({ top: 0, behavior });
+    });
+    updateScrollTopButton();
+    window.addEventListener('scroll', updateScrollTopButton, { passive: true });
+    window.addEventListener('resize', updateScrollTopButton, { passive: true });
+  </script>
+
+  <script>
+    document.querySelectorAll('[data-copy]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        await navigator.clipboard.writeText(button.dataset.copy || '');
+        const label = button.textContent;
+        button.textContent = 'copied';
+        window.setTimeout(() => { button.textContent = label; }, 1400);
+      });
+    });
+  </script>
+
+  <div class="lightbox" data-lightbox aria-hidden="true">
+    <button class="lightbox-close" type="button" data-lightbox-close aria-label="Закрыть полноэкранный просмотр">×</button>
+    <img data-lightbox-image alt="" />
+  </div>
+
+  <script>
+    if (new URLSearchParams(window.location.search).get('spacing') === 'gravity') {
+      document.body.classList.add('spacing-gravity');
+    }
+
+    const revealItems = Array.from(document.querySelectorAll('.reveal, .shot, .result-card'));
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
+      revealItems.forEach((item) => observer.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add('is-visible'));
+    }
+
+    const scrollZoomItems = Array.from(document.querySelectorAll('[data-scroll-zoom]'));
+    function updateScrollZoom() {
+      scrollZoomItems.forEach((el) => {
+        const anchor = el.closest('.hero-cover') || el;
+        const rect = anchor.getBoundingClientRect();
+        const viewport = window.innerHeight || document.documentElement.clientHeight;
+        const progress = Math.min(1, Math.max(0, (viewport - rect.top) / (viewport + rect.height)));
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const scale = 1.52 - 0.62 * eased;
+        el.style.transform = `translateY(8px) scale(${scale.toFixed(4)})`;
+      });
+    }
+    updateScrollZoom();
+    window.addEventListener('scroll', updateScrollZoom, { passive: true });
+    window.addEventListener('resize', updateScrollZoom);
+
+    const lightbox = document.querySelector('[data-lightbox]');
+    const lightboxImage = document.querySelector('[data-lightbox-image]');
+    const closeLightbox = document.querySelector('[data-lightbox-close]');
+    document.querySelectorAll('[data-fullscreen]').forEach((item) => {
+      item.addEventListener('click', () => {
+        const image = item.querySelector('img');
+        if (!image || !lightbox || !lightboxImage) return;
+        const updateMobileSize = () => {
+          const isMobileWide = window.innerWidth <= 767
+            && lightboxImage.naturalWidth / lightboxImage.naturalHeight > 1.15;
+          lightboxImage.classList.toggle('is-mobile-wide', isMobileWide);
+          if (isMobileWide) {
+            lightbox.scrollTop = 0;
+            lightbox.scrollLeft = 0;
+          }
+        };
+        lightboxImage.onload = updateMobileSize;
+        lightboxImage.src = image.currentSrc || image.src;
+        lightboxImage.alt = image.alt || '';
+        if (lightboxImage.complete) updateMobileSize();
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        if (window.innerWidth <= 767) {
+          document.body.classList.add('lightbox-open');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+    function hideLightbox() {
+      lightbox?.classList.remove('open');
+      lightbox?.setAttribute('aria-hidden', 'true');
+      lightboxImage?.classList.remove('is-mobile-wide');
+      if (lightboxImage) lightboxImage.onload = null;
+      document.body.classList.remove('lightbox-open');
+      document.body.style.overflow = '';
+    }
+    closeLightbox?.addEventListener('click', hideLightbox);
+    lightbox?.addEventListener('click', (event) => {
+      if (event.target === lightbox) hideLightbox();
+    });
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') hideLightbox();
+    });
+  </script>
+</body>
+</html>
