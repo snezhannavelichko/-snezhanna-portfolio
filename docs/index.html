@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Snezhanna Velichko - Product Designer</title>
+  <meta name="description" content="Portfolio of Snezhanna Velichko, Senior Product Designer." />
+  <link rel="stylesheet" href="/-snezhanna-portfolio/assets/styles/fonts.css" />
+  <style>
+    :root {
+      --page-width: 1280px;
+      --page-padding: 64px;
+      --text: rgba(0, 0, 0, 0.9);
+      --muted: #999999;
+      --card: #f5f5f5;
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: transparent;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--text);
+      background: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a,
+    button {
+      color: inherit;
+      font: inherit;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .shell {
+      width: min(100%, var(--page-width));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: relative;
+      width: 100%;
+      height: 90px;
+      padding: 0 var(--page-padding);
+      background: #ffffff;
+      border-bottom: 0;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .topbar-inner {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .brand,
+    .nav a {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 26px;
+    }
+
+    .brand {
+      text-decoration: underline;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: auto;
+    }
+
+    .nav {
+      display: flex;
+      gap: 31px;
+    }
+
+    #about,
+    #projects,
+    #contact { scroll-margin-top: 88px; }
+
+    .intro {
+      display: flex;
+      align-items: flex-start;
+      gap: 32px;
+      padding: 80px var(--page-padding) 0;
+    }
+
+    .portrait {
+      position: relative;
+      width: 84.89px;
+      height: 84.82px;
+      flex: 0 0 auto;
+      overflow: hidden;
+      border-radius: 300px;
+      background: #f5f5f5;
+    }
+
+    .portrait img {
+      position: absolute;
+      top: -8.96%;
+      left: -32.33%;
+      width: 133.63%;
+      height: 178.22%;
+      max-width: none;
+    }
+
+    .intro p {
+      width: 975.31px;
+      max-width: 100%;
+      margin: 0;
+      color: var(--text);
+      font-size: 24px;
+      font-weight: 400;
+      line-height: normal;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2, 568px);
+      gap: 16px;
+      padding: 80px var(--page-padding) 0;
+    }
+
+    .project-card {
+      display: flex;
+      width: 568px;
+      height: auto;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      overflow: hidden;
+      border-radius: 20px;
+      background: var(--card);
+    }
+
+    a.project-card {
+      cursor: pointer;
+    }
+
+    a.project-card:hover,
+    a.project-card:focus-visible {
+      outline: none;
+    }
+
+    .cover-purchase,
+    .cover-app,
+    .cover-career,
+    .cover-nda {
+      transition: transform 520ms cubic-bezier(.22, 1, .36, 1);
+      transform-origin: center;
+      will-change: transform;
+    }
+
+    .project-card:hover .cover-purchase,
+    .project-card:hover .cover-app,
+    .project-card:hover .cover-career,
+    .project-card:focus-visible .cover-purchase,
+    .project-card:focus-visible .cover-app,
+    .project-card:focus-visible .cover-career {
+      transform: scale(1.04);
+    }
+
+    .visual {
+      position: relative;
+      width: 100%;
+      height: 294px;
+      flex: 0 0 294px;
+      overflow: hidden;
+      background: var(--card);
+    }
+
+    .cover-purchase,
+    .cover-app,
+    .cover-career,
+    .cover-nda {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+    }
+
+    .cover-app {
+      object-fit: contain;
+      transform: scale(.94);
+      clip-path: inset(16px 0 0 0);
+    }
+
+    .project-card-nda {
+      position: relative;
+      cursor: default;
+    }
+
+    .cover-nda {
+      object-fit: cover;
+      transition: filter 420ms ease, transform 520ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .nda-hover {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      color: var(--text);
+      background: rgba(245, 245, 245, .56);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      font-size: 20px;
+      line-height: 26px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 320ms ease;
+    }
+
+    .project-card-nda:hover .cover-nda,
+    .project-card-nda:focus-visible .cover-nda {
+      filter: blur(3px);
+      transform: scale(1.015);
+    }
+
+    .project-card-nda:hover .nda-hover,
+    .project-card-nda:focus-visible .nda-hover {
+      opacity: 1;
+    }
+
+    .project-card-nda:focus-visible {
+      outline: 2px solid rgba(0, 0, 0, .35);
+      outline-offset: 3px;
+    }
+
+    .project-card:hover .cover-app,
+    .project-card:focus-visible .cover-app {
+      transform: scale(.98);
+    }
+
+    .project-copy {
+      display: flex;
+      width: 100%;
+      flex: 0 0 auto;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 24px 24px;
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 25px;
+    }
+
+    .project-copy p {
+      margin: 0;
+    }
+
+    .project-copy p:first-child {
+      color: var(--text);
+    }
+
+    .project-copy p:last-child {
+      color: var(--muted);
+    }
+
+    .portfolio-footer {
+      width: min(100%, 1280px);
+      height: 90px;
+      margin: 120px auto 0;
+      padding: 32px 64px;
+      color: var(--muted);
+    }
+    .portfolio-footer-inner { display: flex; align-items: flex-start; justify-content: space-between; white-space: nowrap; }
+    .portfolio-footer-resume { font: 400 20px/26px -apple-system, BlinkMacSystemFont, "Inter", sans-serif; }
+    .portfolio-footer-links { display: flex; align-items: center; gap: 56px; font: 400 19px/normal -apple-system, BlinkMacSystemFont, "Inter", sans-serif; }
+    .portfolio-copy-button { padding: 0; border: 0; background: transparent; color: inherit; font: 400 19px/normal -apple-system, BlinkMacSystemFont, "Inter", sans-serif; cursor: pointer; }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      z-index: 2;
+      padding: 10px 16px;
+      border-radius: 999px;
+      color: #ffffff;
+      background: #111111;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 12px);
+      transition: opacity 160ms ease, transform 160ms ease;
+    }
+
+    .toast.visible {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 1279px) {
+      :root {
+        --page-padding: clamp(20px, 5vw, 64px);
+      }
+
+      .projects {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .project-card {
+        width: 100%;
+        height: auto;
+      }
+
+      .visual {
+        height: auto;
+        aspect-ratio: 568 / 294;
+        flex-basis: auto;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .topbar {
+        height: 64px;
+        padding: 0 16px;
+      }
+
+      .topbar-inner {
+        flex-direction: row;
+        gap: 16px;
+      }
+
+      .brand { font-size: 15px; line-height: 20px; }
+      .nav { gap: 16px; }
+      .nav a { font-size: 15px; line-height: 20px; }
+
+      .portfolio-footer {
+        height: auto;
+        padding: 24px 16px;
+      }
+
+      .portfolio-footer-inner {
+        align-items: flex-start;
+        gap: 24px;
+      }
+
+      .portfolio-footer-resume { font-size: 15px; line-height: 20px; }
+      .portfolio-footer-links { gap: 20px; font-size: 14px; line-height: 20px; }
+
+      .intro,
+      .footer-inner {
+        flex-direction: column;
+      }
+
+      .intro {
+        padding-top: 56px;
+      }
+
+      .intro p {
+        font-size: 22px;
+      }
+
+      .projects {
+        grid-template-columns: 1fr;
+        padding-top: 64px;
+      }
+
+      .footer {
+        height: auto;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        gap: 18px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cover-purchase,
+      .cover-app,
+      .cover-career,
+      .cover-nda,
+      .nda-hover {
+        transition: none;
+      }
+    }
+    .brand,
+    .nav a,
+    .intro p,
+    .project-copy,
+    .nda-hover,
+    .portfolio-footer-resume,
+    .portfolio-footer-links,
+    .portfolio-copy-button {
+      font-size: 19px;
+      line-height: 26px;
+    }
+  </style>
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="/-snezhanna-portfolio/" aria-current="page">home</a>
+        <nav class="nav" aria-label="Portfolio navigation">
+          <a href="https://drive.google.com/file/d/1_fi4YnXSFHSJZVvkPNP3bwHaM91pyehh/view?usp=sharing" target="_blank" rel="noreferrer">resume</a>
+          <a href="#contact">contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro" id="about" aria-label="About">
+        <div class="portrait">
+          <img src="/-snezhanna-portfolio/assets/media/188187b98ed66620.png" alt="Snezhanna Velichko" />
+        </div>
+        <p>Senior Product Designer with 7+ years of experience. In recent years, I’ve focused on product development — from targeted improvements to large-scale redesigns. My core focus is product hypotheses, metrics, design process development, and AI adoption.</p>
+      </section>
+
+      <section class="projects" id="projects" aria-label="Projects">
+        <a class="project-card" href="/-snezhanna-portfolio/purchase-flow/">
+          <div class="visual">
+            <img class="cover-purchase" src="/-snezhanna-portfolio/assets/media/02887c18b84118a7.png" alt="Purchase flow case preview" />
+          </div>
+          <div class="project-copy">
+            <p>Флоу покупки курсов</p>
+            <p>Пересобрала путь от выбора курса до оплаты</p>
+          </div>
+        </a>
+
+        <a class="project-card" href="/-snezhanna-portfolio/app-redesign/">
+          <div class="visual">
+            <img class="cover-app" src="/-snezhanna-portfolio/assets/media/152a42dcf6470a52.png" alt="App redesign case preview" />
+          </div>
+          <div class="project-copy">
+            <p>Редизайн приложения</p>
+            <p>Обновила мобильный опыт обучения в Практикуме</p>
+          </div>
+        </a>
+
+        <a class="project-card" href="/-snezhanna-portfolio/career-navigator/">
+          <div class="visual">
+            <img class="cover-career" src="/-snezhanna-portfolio/assets/media/3b108152143a50cf.png" alt="Career navigator case preview" />
+          </div>
+          <div class="project-copy">
+            <p>Карьерный навигатор</p>
+            <p>Связала карьерный гэп, обучение и вакансии</p>
+          </div>
+        </a>
+
+        <article class="project-card project-card-nda" tabindex="0" aria-label="Карьерный агент в Alice AI. Пока NDA">
+          <div class="visual">
+            <img class="cover-nda" src="/-snezhanna-portfolio/assets/media/1d74202fa8c423d5.png" alt="Размытое превью проекта под NDA" />
+            <div class="nda-hover" aria-hidden="true">Пока NDA :(</div>
+          </div>
+          <div class="project-copy">
+            <p>Карьерный агент в Alice AI</p>
+            <p>Спроектировала AI-агента для анализа и улучшения резюме и подбора вакансий</p>
+          </div>
+        </article>
+
+        <article class="project-card project-card-nda" tabindex="0" aria-label="HR-tech. Пока NDA">
+          <div class="visual">
+            <img class="cover-nda" src="/-snezhanna-portfolio/assets/media/3ff632e9c6e61f33.png" alt="Размытое превью HR-tech проекта под NDA" />
+            <div class="nda-hover" aria-hidden="true">Пока NDA :(</div>
+          </div>
+          <div class="project-copy">
+            <p>HR-tech</p>
+            <p>Спроектировала сервис для проведения AI-интервью и анализа кандидатов</p>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="portfolio-footer" id="contact">
+      <div class="portfolio-footer-inner">
+        <button class="portfolio-copy-button" type="button" data-copy="velichkosnezhanna@yandex.ru">copy email</button>
+        <div class="portfolio-footer-links">
+          <a class="portfolio-footer-resume" href="https://drive.google.com/file/d/1_fi4YnXSFHSJZVvkPNP3bwHaM91pyehh/view?usp=sharing" target="_blank" rel="noreferrer">resume</a>
+          <a href="https://www.linkedin.com/in/snezhanna-velichko-a382a1275/" target="_blank" rel="noreferrer">lnkdn</a>
+          <a href="https://t.me/snezhannav" target="_blank" rel="noreferrer">tg</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div class="toast" role="status" aria-live="polite">Email copied</div>
+
+  <script>
+    const toast = document.querySelector('.toast');
+    let toastTimer;
+
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add('visible');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('visible'), 1600);
+    }
+
+    document.querySelectorAll('[data-copy]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const value = button.getAttribute('data-copy');
+        try {
+          await navigator.clipboard.writeText(value);
+          showToast('Email copied');
+        } catch (error) {
+          showToast(value);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

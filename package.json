@@ -6,8 +6,9 @@
   "scripts": {
     "export": "node tools/export-site.mjs",
     "validate": "node tools/validate-site.mjs",
-    "sync": "npm run export && npm run validate",
+    "sync": "npm run export && npm run validate && npm run mirror:github",
     "build": "npm run validate",
+    "mirror:github": "node tools/prepare-github-pages.mjs",
     "serve": "python3 -m http.server 4173 --bind 127.0.0.1 --directory public"
   }
 }
