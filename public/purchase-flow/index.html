@@ -817,7 +817,7 @@
       margin-top: 40px !important;
     }
     .checkout-step-section > .checkout-step-shot + .checkout-step-copy {
-      margin-top: 80px;
+      margin-top: 64px;
     }
     .checkout-step-section .figma-copy-block {
       width: 100%;
@@ -4906,9 +4906,11 @@
     body.spacing-gravity .figma-section > .figma-export-image {
       margin-top: 40px;
     }
-    body.spacing-gravity .checkout-step-section > .figma-copy-block + .checkout-step-copy,
+    body.spacing-gravity .checkout-step-section > .figma-copy-block + .checkout-step-copy {
+      margin-top: 32px;
+    }
     body.spacing-gravity .checkout-step-section > .checkout-step-shot + .checkout-step-copy {
-      margin-top: 80px;
+      margin-top: 64px;
     }
     body.spacing-gravity .checkout-step-section > .checkout-step-copy + .checkout-step-shot {
       margin-top: 40px !important;
@@ -4950,6 +4952,36 @@
     .case-fact dd {
       margin: 8px 0 0;
       color: rgba(0, 0, 0, .6);
+    }
+    .checkout-step-section .figma-copy-block > .figma-body {
+      color: #999 !important;
+      opacity: 1 !important;
+    }
+
+    /* Checkout figures use one explicit rhythm; image files must not add layout height. */
+    .checkout-step-shot {
+      height: auto !important;
+      min-height: 0 !important;
+      aspect-ratio: auto !important;
+    }
+    .checkout-step-shot img {
+      height: auto !important;
+      aspect-ratio: auto !important;
+      object-fit: contain !important;
+    }
+    .checkout-step-shot figcaption {
+      margin: 0 !important;
+    }
+
+    @media (min-width: 768px) {
+      body.spacing-gravity .checkout-step-section > .checkout-step-copy + .checkout-step-shot,
+      .checkout-step-section > .checkout-step-copy + .checkout-step-shot {
+        margin: 40px 0 0 !important;
+      }
+      body.spacing-gravity .checkout-step-section > .checkout-step-shot + .checkout-step-copy,
+      .checkout-step-section > .checkout-step-shot + .checkout-step-copy {
+        margin-top: 64px !important;
+      }
     }
 
     @media (max-width: 767px) {
@@ -5286,9 +5318,8 @@ UX-тексты
     <section class="figma-section checkout-step-section reveal" aria-labelledby="checkout-step-title">
       <div class="figma-copy-block">
         <h2 id="checkout-step-title">Чекаут</h2>
-        <p class="figma-body">В чекауте проблемы напрямую били по покупке: пользователь уже был готов оплатить курс, но интерфейс всё ещё заставлял разбираться в шагах, способах оплаты, суммах и подтверждениях.
-
-Чтобы сравнение до/после было легче читать, я разделила чекаут на два ключевых шага: выбор способа оплаты и подтверждение перед списанием.</p>
+        <p class="figma-body">В чекауте проблемы напрямую били по покупке: пользователь уже был готов оплатить курс, но интерфейс всё ещё заставлял разбираться в шагах, способах оплаты, суммах и подтверждениях.</p>
+        <p class="figma-body">Чтобы сравнение до/после было легче читать, я разделила чекаут на два ключевых шага: выбор способа оплаты и подтверждение перед списанием.</p>
       </div>
 
       <div class="checkout-step-copy">
@@ -5318,8 +5349,8 @@ UX-тексты
         </ul>
       </div>
 
-      <figure class="checkout-step-shot checkout-step-shot--after" data-fullscreen-src="/assets/media/a78c6ba83447c580.png" aria-label="Открыть экран выбора способа оплаты после правок на весь экран">
-        <img src="/assets/media/a78c6ba83447c580.png" alt="Экран выбора способа оплаты после правок" />
+      <figure class="checkout-step-shot checkout-step-shot--after" data-fullscreen-src="/assets/media/ef79994c4c94b5be.png" aria-label="Открыть экран выбора способа оплаты после правок на весь экран">
+        <img src="/assets/media/ef79994c4c94b5be.png" alt="Экран выбора способа оплаты после правок" />
         <figcaption>Экран выбора способа оплаты после правок</figcaption>
       </figure>
 
