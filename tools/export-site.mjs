@@ -3,6 +3,8 @@ import { existsSync } from "node:fs";
 import { cp, mkdir, readFile, readdir, rm, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { parse } from "parse5";
+import Typograf from "typograf";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const sourceRoot = path.resolve(process.env.PORTFOLIO_SOURCE || path.join(repoRoot, "../портфолио"));
@@ -19,6 +21,72 @@ const routeBySource = new Map(pages.map((page) => [page.source, page.route]));
 const linkedInUrl = "https://www.linkedin.com/in/snezhanna-velichko-a382a1275/";
 const assetByDigest = new Map();
 const copiedAssets = [];
+const typograf = new Typograf({ locale: ["ru", "en-US"] });
+const typographyExcludedTags = new Set([
+  "code",
+  "kbd",
+  "math",
+  "noscript",
+  "pre",
+  "samp",
+  "script",
+  "style",
+  "svg",
+  "textarea"
+]);
+let typographyChanges = 0;
+
+function escapeHtmlText(value) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+function executeTypography(value) {
+  const protectedFragments = [];
+  const protectedValue = value.replace(/:-?[()]/g, (fragment) => {
+    const index = protectedFragments.push(fragment) - 1;
+    return `\uE000${index}\uE001`;
+  });
+
+  return typograf.execute(protectedValue).replace(/\uE000(\d+)\uE001/g, (_, index) => protectedFragments[Number(index)]);
+}
+
+function applyTypography(html) {
+  const document = parse(html, { sourceCodeLocationInfo: true });
+  const replacements = [];
+
+  function walk(node, excluded = false) {
+    const hasOptOut = node.attrs?.some((attr) => attr.name === "data-no-typography");
+    const isExcluded = excluded || typographyExcludedTags.has(node.tagName) || hasOptOut;
+
+    if (node.nodeName === "#text" && !isExcluded && node.sourceCodeLocation) {
+      const { startOffset, endOffset } = node.sourceCodeLocation;
+      const match = node.value.match(/^(\s*)([\s\S]*?)(\s*)$/u);
+      const leading = match?.[1] ?? "";
+      const content = match?.[2] ?? node.value;
+      const trailing = match?.[3] ?? "";
+
+      if (/\p{L}/u.test(content)) {
+        const replacement = leading + escapeHtmlText(executeTypography(content)) + trailing;
+        const original = html.slice(startOffset, endOffset);
+        if (replacement !== original) replacements.push({ startOffset, endOffset, replacement });
+      }
+    }
+
+    for (const child of node.childNodes ?? []) walk(child, isExcluded);
+    if (node.content) walk(node.content, isExcluded);
+  }
+
+  walk(document);
+  typographyChanges += replacements.length;
+
+  for (const { startOffset, endOffset, replacement } of replacements.sort((a, b) => b.startOffset - a.startOffset)) {
+    html = html.slice(0, startOffset) + replacement + html.slice(endOffset);
+  }
+  return html;
+}
 
 function hasClass(openingTag, className) {
   const match = openingTag.match(/\bclass\s*=\s*["']([^"']*)["']/i);
@@ -196,6 +264,7 @@ async function exportPage(page) {
   const sourcePath = path.join(sourceRoot, page.source);
   let html = await readFile(sourcePath, "utf8");
   html = preparePage(html, page);
+  html = applyTypography(html);
   html = await rewriteAssetReferences(html, page.source);
 
   const outputPath = path.join(outputRoot, page.output);
@@ -227,6 +296,7 @@ async function main() {
 
   const totalBytes = copiedAssets.reduce((sum, asset) => sum + asset.bytes, 0);
   console.log(`Exported ${pages.length} pages and ${copiedAssets.length} unique media assets (${(totalBytes / 1024 / 1024).toFixed(1)} MiB).`);
+  console.log(`Typography applied to ${typographyChanges} text nodes.`);
 }
 
 await main();
