@@ -63,6 +63,7 @@
       top: 0;
       width: var(--figma-w);
       height: var(--figma-h);
+      margin-left: calc(var(--figma-w) / -2);
       transform-origin: top center;
       background: #fff;
     }
@@ -127,17 +128,15 @@
       cursor: zoom-in;
     }
     .hero-cover img {
+      display: block;
       width: 100%;
       height: 100%;
       margin-top: 0;
       object-fit: cover;
-      will-change: transform;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
     }
-    .hero-cover img.scroll-zoom {
-      transform: scale(1.42);
-      transform-origin: center center;
-    }
-
     .meta-grid {
       font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
       font-feature-settings: "lnum", "pnum";
@@ -344,7 +343,7 @@
     }
     .phone-card img { width: 373.333333px; height: 593px; object-fit: fill; }
 
-    .tablet-image { top: 132px; height: 640px; }
+    .tablet-image { top: 112px; height: 640px; }
     .results-grid {
       position: absolute;
       left: 0;
@@ -419,7 +418,7 @@
       width: 100%;
       height: 90px;
       color: rgba(0,0,0,.9);
-      background: transparent;
+      background: #fff;
       border-bottom: 0;
       box-shadow: none;
       backdrop-filter: none;
@@ -443,6 +442,7 @@
     .site-nav { display: flex; gap: 31px; }
 
     .progressive-glass {
+      display: none;
       position: absolute;
       inset: 0;
       z-index: 1;
@@ -698,7 +698,6 @@
       opacity: 0;
       transform: translateY(18px);
       transition: opacity 620ms ease, transform 620ms ease;
-      will-change: opacity, transform;
     }
     .reveal.is-visible {
       opacity: 1;
@@ -707,12 +706,6 @@
     .reveal-delay-1 { transition-delay: 80ms; }
     .reveal-delay-2 { transition-delay: 160ms; }
     .reveal-delay-3 { transition-delay: 240ms; }
-
-    .scroll-zoom {
-      transform: scale(1.42);
-      transform-origin: center center;
-      will-change: transform;
-    }
 
     @media (max-width: 900px) {
       body { padding-top: 64px; }
@@ -760,9 +753,9 @@
       }
     }
 
-    /* Gravity-style responsive flow: preserve media proportions instead of
-       scaling the entire 1280px Figma canvas on smaller viewports. */
-    @media (max-width: 919px) {
+    /* Preserve media proportions instead of scaling the entire 1280px Figma
+       canvas into one large composited layer. */
+    @media (min-width: 0px) {
       .viewport {
         width: 100%;
         min-height: 0 !important;
@@ -773,9 +766,10 @@
         position: relative;
         left: auto;
         top: auto;
-        width: min(calc(100% - 40px), 896px);
+        width: min(calc(100% - 128px), 1152px);
         height: auto;
         margin: 0 auto;
+        padding-top: 56px;
         transform: none !important;
       }
 
@@ -793,7 +787,7 @@
         top: auto;
         width: 100%;
         height: auto;
-        margin: 0 0 96px;
+        margin: 0 0 120px;
       }
 
       .title-group,
@@ -840,6 +834,7 @@
         width: 100%;
         height: auto;
         aspect-ratio: 1152 / 740;
+        margin: 0 0 44px;
       }
 
       .hero-cover img,
@@ -855,7 +850,7 @@
         left: auto;
         top: auto;
         width: 100%;
-        margin-top: 40px;
+        margin-top: 0;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 32px;
       }
@@ -939,6 +934,12 @@
 
       .related-projects {
         margin-top: 0;
+      }
+    }
+
+    @media (max-width: 919px) {
+      .figma-case {
+        width: calc(100% - 40px);
       }
     }
 
@@ -1209,7 +1210,7 @@
           <h1 class="case-title">Редизайн приложения</h1>
           <p class="case-subtitle">Пересобрала сценарий покупки курса и улучшила конверсию в оплату</p>
         </div>
-        <div class="hero-cover" data-fullscreen><img class="scroll-zoom" data-scroll-zoom src="/-snezhanna-portfolio/assets/media/509c59708b9c9545.png" alt="Обложка кейса редизайна приложения" /></div>
+        <figure class="hero-cover" data-fullscreen><img src="/-snezhanna-portfolio/assets/media/509c59708b9c9545.png" alt="Обложка кейса редизайна приложения" /></figure>
         <div class="meta-grid">
           <article class="meta-item"><h3>Контекст</h3><p>Нужно было решить текущие проблемы приложения и заложить основу для его масштабирования</p></article>
           <article class="meta-item"><h3>Моя роль</h3><p>Старший продуктовый дизайнер</p></article>
@@ -1375,20 +1376,6 @@ AI</p></article>
   </div>
 
   <script>
-    const viewport = document.querySelector('[data-viewport]');
-    const figmaCase = document.querySelector('[data-figma-case]');
-    const DESIGN_WIDTH = 1280;
-    const DESIGN_HEIGHT = 9119.1103515625;
-
-    function fitStage() {
-      const scale = Math.min(1, window.innerWidth / DESIGN_WIDTH);
-      if (!figmaCase || !viewport) return;
-      figmaCase.style.transform = `translateX(-50%) scale(${scale})`;
-      viewport.style.minHeight = `${DESIGN_HEIGHT * scale}px`;
-    }
-    window.addEventListener('resize', fitStage, { passive: true });
-    fitStage();
-
     const revealItems = [
       ...document.querySelectorAll('.title-group, .meta-item, .copy-head, .features-text, .tablet-note, .wide-asset, .features-image, .phone-card, .result-card, .related-projects')
     ];
@@ -1411,28 +1398,6 @@ AI</p></article>
     } else {
       revealItems.forEach((item) => item.classList.add('is-visible'));
     }
-
-    const scrollZoomItems = Array.from(document.querySelectorAll('[data-scroll-zoom]'));
-    let scrollZoomFrame = 0;
-    function updateScrollZoom() {
-      scrollZoomFrame = 0;
-      scrollZoomItems.forEach((el) => {
-        const anchor = el.closest('.hero-cover') || el;
-        const rect = anchor.getBoundingClientRect();
-        const viewport = window.innerHeight || document.documentElement.clientHeight;
-        const progress = Math.min(1, Math.max(0, (viewport - rect.top) / (viewport + rect.height)));
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const scale = 1.42 - 0.47 * eased;
-        el.style.transform = `scale(${scale.toFixed(4)})`;
-      });
-    }
-    function requestScrollZoomUpdate() {
-      if (scrollZoomFrame) return;
-      scrollZoomFrame = window.requestAnimationFrame(updateScrollZoom);
-    }
-    updateScrollZoom();
-    window.addEventListener('scroll', requestScrollZoomUpdate, { passive: true });
-    window.addEventListener('resize', requestScrollZoomUpdate);
 
     const lightbox = document.querySelector('[data-lightbox]');
     const lightboxImage = document.querySelector('[data-lightbox-image]');

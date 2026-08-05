@@ -126,7 +126,7 @@
       width: 100%;
       height: 90px;
       color: rgba(0,0,0,.9);
-      background: transparent;
+      background: #fff;
       border-bottom: 0;
       box-shadow: none;
       backdrop-filter: none;
@@ -150,6 +150,7 @@
     .site-nav { display: flex; gap: 31px; }
 
     .progressive-glass {
+      display: none;
       position: absolute;
       inset: 0;
       z-index: 1;
@@ -4716,17 +4717,15 @@
     .reveal {
       opacity: 0;
       transform: translate3d(0, 28px, 0);
-      transition: opacity 1500ms var(--ease), transform 1500ms var(--ease);
+      transition: opacity 700ms var(--ease), transform 700ms var(--ease);
       transition-delay: var(--delay, 0ms);
-      will-change: opacity, transform;
     }
     .reveal.visible { opacity: 1; transform: translate3d(0, 0, 0); }
     .image-reveal {
       opacity: 0;
       transform: translate3d(0, 28px, 0);
-      transition: opacity 1500ms var(--ease), transform 1500ms var(--ease);
+      transition: opacity 700ms var(--ease), transform 700ms var(--ease);
       transition-delay: var(--image-delay, 0ms);
-      will-change: transform;
     }
     .image-reveal.visible {
       opacity: 1;
@@ -4735,12 +4734,11 @@
     .stagger > * {
       opacity: 0;
       transform: translate3d(0, 28px, 0);
-      transition: opacity 1450ms var(--ease), transform 1450ms var(--ease);
-      transition-delay: calc(var(--i, 0) * 190ms + var(--delay, 0ms));
-      will-change: opacity, transform;
+      transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+      transition-delay: calc(var(--i, 0) * 100ms + var(--delay, 0ms));
     }
     .stagger.visible > * { opacity: var(--final-opacity, 1); transform: translate3d(0, 0, 0); }
-    .scroll-zoom { transform: scale(1.52); transform-origin: center bottom; will-change: transform; }
+    .scroll-zoom { transform: none; transform-origin: center bottom; }
 
     @media (max-width: 900px) {
       :root { --page: calc(100vw - 32px); --wide: var(--page); }
@@ -4903,9 +4901,15 @@
     body.spacing-gravity .analytics-section {
       gap: 40px;
     }
-    body.spacing-gravity .figma-section > .figma-export-image {
-      margin-top: 40px;
-    }
+body.spacing-gravity .figma-section > .figma-export-image {
+  margin-top: 40px;
+}
+
+body.spacing-gravity .problem-section > .figma-export-image,
+body.spacing-gravity .free-part-section > .figma-export-image,
+body.spacing-gravity .analytics-section > .figma-export-image {
+  margin-top: 0;
+}
     body.spacing-gravity .checkout-step-section > .figma-copy-block + .checkout-step-copy {
       margin-top: 32px;
     }
@@ -5168,7 +5172,7 @@
         <p class="case-subtitle">Пересобрала сценарий покупки курса: от выбора формата обучения до оплаты.</p>
       </div>
       <div class="figma-hero-card reveal" style="--delay: 240ms">
-        <img class="scroll-zoom" data-scroll-zoom src="/assets/media/e3d2afcd40b2b8fb.png" alt="Экран чекаута курса на ноутбуке" />
+        <img src="/assets/media/e3d2afcd40b2b8fb.png" alt="Экран чекаута курса на ноутбуке" />
       </div>
       <dl class="case-facts">
         <div class="case-fact">
@@ -5516,22 +5520,6 @@ UX-тексты
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
     animated.forEach((el) => observer.observe(el));
-
-    const scrollZoomItems = Array.from(document.querySelectorAll('[data-scroll-zoom]'));
-    function updateScrollZoom() {
-      scrollZoomItems.forEach((el) => {
-        const anchor = el.closest('.hero-card, .figma-hero-card') || el;
-        const rect = anchor.getBoundingClientRect();
-        const viewport = window.innerHeight || document.documentElement.clientHeight;
-        const progress = Math.min(1, Math.max(0, (viewport - rect.top) / (viewport + rect.height)));
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const scale = 1.52 - 0.62 * eased;
-        el.style.transform = `translateY(8px) scale(${scale.toFixed(4)})`;
-      });
-    }
-    updateScrollZoom();
-    window.addEventListener('scroll', updateScrollZoom, { passive: true });
-    window.addEventListener('resize', updateScrollZoom);
 
     const carousel = document.querySelector('[data-carousel]');
     const dots = Array.from(document.querySelectorAll('.dot'));
