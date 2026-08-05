@@ -284,6 +284,7 @@
     .figma-hero-card img.scroll-zoom {
       transform: scale(1.52);
       transform-origin: center bottom;
+      will-change: transform;
     }
     .figma-export-block,
     .figma-export-stack {
@@ -5176,7 +5177,7 @@ body.spacing-gravity .analytics-section > .figma-export-image {
         <p class="case-subtitle">Пересобрала сценарий покупки курса: от выбора формата обучения до оплаты.</p>
       </div>
       <div class="figma-hero-card reveal" style="--delay: 240ms">
-        <img src="/assets/media/e3d2afcd40b2b8fb.png" alt="Экран чекаута курса на ноутбуке" />
+        <img class="scroll-zoom" data-scroll-zoom src="/assets/media/e3d2afcd40b2b8fb.png" alt="Экран чекаута курса на ноутбуке" />
       </div>
       <dl class="case-facts">
         <div class="case-fact">
@@ -5524,6 +5525,28 @@ UX-тексты
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
     animated.forEach((el) => observer.observe(el));
+
+    const scrollZoomItems = Array.from(document.querySelectorAll('[data-scroll-zoom]'));
+    let scrollZoomFrame = 0;
+    function updateScrollZoom() {
+      scrollZoomFrame = 0;
+      scrollZoomItems.forEach((el) => {
+        const anchor = el.closest('.hero-card, .figma-hero-card') || el;
+        const rect = anchor.getBoundingClientRect();
+        const viewport = window.innerHeight || document.documentElement.clientHeight;
+        const progress = Math.min(1, Math.max(0, (viewport - rect.top) / (viewport + rect.height)));
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const scale = 1.52 - 0.62 * eased;
+        el.style.transform = `translateY(8px) scale(${scale.toFixed(4)})`;
+      });
+    }
+    function requestScrollZoomUpdate() {
+      if (scrollZoomFrame) return;
+      scrollZoomFrame = window.requestAnimationFrame(updateScrollZoom);
+    }
+    updateScrollZoom();
+    window.addEventListener('scroll', requestScrollZoomUpdate, { passive: true });
+    window.addEventListener('resize', requestScrollZoomUpdate);
 
     const carousel = document.querySelector('[data-carousel]');
     const dots = Array.from(document.querySelectorAll('.dot'));
