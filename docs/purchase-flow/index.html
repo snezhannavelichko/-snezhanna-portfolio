@@ -944,15 +944,27 @@
       display: block;
       min-width: 0;
       margin: 0;
-      cursor: zoom-in;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border-radius: 16px;
+      background: var(--result-bg, #f4f4f4);
     }
     .result-card img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 16px;
+      display: none;
     }
-    .result-card-copy { display: none; }
+    .result-card-copy {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+      padding: 24px;
+      font: 400 20px/26px -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      letter-spacing: 0;
+    }
+    .result-card-title { color: rgba(0, 0, 0, .9); }
+    .result-card-description { color: #999; }
 
     /* Shared body color follows the main copy neutral in the Gravity light theme. */
     .case-subtitle,
@@ -5164,7 +5176,7 @@ body.spacing-gravity .analytics-section > .figma-export-image {
     <div class="site-header-inner">
       <a class="site-home" href="/-snezhanna-portfolio/">home</a>
       <nav class="site-nav" aria-label="Навигация по портфолио">
-        <a href="https://drive.google.com/file/d/1_fi4YnXSFHSJZVvkPNP3bwHaM91pyehh/view?usp=sharing" target="_blank" rel="noreferrer">resume</a>
+        <a href="/-snezhanna-portfolio/assets/media/f0ae84e5a28b2131.pdf" target="_blank" rel="noreferrer">resume</a>
         <a href="#contact">contact</a>
       </nav>
     </div>
@@ -5396,23 +5408,19 @@ UX-тексты
     <section class="results-section reveal" aria-labelledby="results-title">
       <div class="figma-copy-block">
         <h2 id="results-title">Итоги</h2>
-        <p class="figma-body">Мы сократили количество решений на пути к покупке: тарифы стало проще сравнивать, бесплатный старт — легче понять, а чекаут — проходить без сомнений. В совокупности изменения дали рост ключевых метрик на каждом этапе воронки — от выбора тарифа до оплаты.</p>
+        <p class="figma-body">Мы сократили количество решений на пути к покупке: тарифы стало проще сравнивать, бесплатный старт — легче понять, а чекаут — проходить без сомнений. В итоге выросли ключевые метрики воронки — от перехода между экранами до оплаты.</p>
       </div>
       <div class="results-grid">
-        <figure class="result-card" style="--result-bg:#f7ffdc" data-fullscreen-src="/-snezhanna-portfolio/assets/media/ff6a4f051f42a847.png" aria-label="Открыть первый результат на весь экран">
-          <img src="/-snezhanna-portfolio/assets/media/ff6a4f051f42a847.png" alt="+16% к конверсии в оплату" />
-          <span class="result-card-copy"><span class="result-card-title">+16% к конверсии в оплату</span><span class="result-card-description">Тарифы, чекаут и переход в бесплатную часть стали понятнее</span></span>
+        <figure class="result-card" style="--result-bg:#f7ffdc">
+          <span class="result-card-copy"><span class="result-card-title">+16,4% к сквозной конверсии чекаут → оплата</span><span class="result-card-description">Десктоп, статистически значимый рост</span></span>
         </figure>
-        <figure class="result-card" style="--result-bg:#f0f0ff" data-fullscreen-src="/-snezhanna-portfolio/assets/media/66c00482b3e9de1a.png" aria-label="Открыть второй результат на весь экран">
-          <img src="/-snezhanna-portfolio/assets/media/66c00482b3e9de1a.png" alt="+18% на первом шаге чекаута" />
-          <span class="result-card-copy"><span class="result-card-title">+18% на первом шаге чекаута</span><span class="result-card-description">Пользователям стало проще выбрать способ оплаты и понять сумму</span></span>
+        <figure class="result-card" style="--result-bg:#f0f0ff">
+          <span class="result-card-copy"><span class="result-card-title">+5% к переходу 1-й → 2-й экран</span><span class="result-card-description">Округлённое значение фактического роста +4,61%</span></span>
         </figure>
-        <figure class="result-card" style="--result-bg:#dcefff" data-fullscreen-src="/-snezhanna-portfolio/assets/media/47a209f8b7c9d6b4.png" aria-label="Открыть третий результат на весь экран">
-          <img src="/-snezhanna-portfolio/assets/media/47a209f8b7c9d6b4.png" alt="+13% на втором шаге чекаута" />
-          <span class="result-card-copy"><span class="result-card-title">+13% на втором шаге чекаута</span><span class="result-card-description">Отдельный сложный шаг заменили быстрой проверкой данных</span></span>
+        <figure class="result-card" style="--result-bg:#dcefff">
+          <span class="result-card-copy"><span class="result-card-title">+11,1% к переходу 3-й экран → оплата</span><span class="result-card-description">Финальный шаг чекаута на десктопе</span></span>
         </figure>
-        <figure class="result-card" style="--result-bg:#f4f4f4" data-fullscreen-src="/-snezhanna-portfolio/assets/media/f4a169c354a254cf.png" aria-label="Открыть четвёртый результат на весь экран">
-          <img src="/-snezhanna-portfolio/assets/media/f4a169c354a254cf.png" alt="+3% к среднему чеку" />
+        <figure class="result-card" style="--result-bg:#f4f4f4">
           <span class="result-card-copy"><span class="result-card-title">+3% к среднему чеку</span><span class="result-card-description">Помогли сравнить тарифы и выделили выгодный вариант</span></span>
         </figure>
       </div>
@@ -5448,7 +5456,7 @@ UX-тексты
     <div class="portfolio-footer-inner">
       <button class="portfolio-copy-button" type="button" data-copy="velichkosnezhanna@yandex.ru">copy email</button>
       <div class="portfolio-footer-links">
-        <a class="portfolio-footer-resume" href="https://drive.google.com/file/d/1_fi4YnXSFHSJZVvkPNP3bwHaM91pyehh/view?usp=sharing" target="_blank" rel="noreferrer">resume</a>
+        <a class="portfolio-footer-resume" href="/-snezhanna-portfolio/assets/media/f0ae84e5a28b2131.pdf" target="_blank" rel="noreferrer">resume</a>
         <a href="https://www.linkedin.com/in/snezhanna-velichko-a382a1275/" target="_blank" rel="noreferrer">lnkdn</a>
         <a href="https://t.me/snezhannav" target="_blank" rel="noreferrer">tg</a>
       </div>
